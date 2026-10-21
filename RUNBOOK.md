@@ -74,6 +74,6 @@ branch `claude/modest-euler-fqoql0`, folder `/` (root). Every run updates it aft
 
 ## Notifications
 
- when there is a big story, the final reply of the run starts with
+When there is a big story, the final reply of the run starts with
 `BIG STORY:` and one line on it. Otherwise the final reply is exactly
 `No big story. Page updated.`
