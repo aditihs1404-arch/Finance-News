@@ -106,6 +106,18 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .cal b { display: block; font-size: 0.95rem; }
 .cal span { font-size: 0.88rem; color: var(--ink-2); }
 
+/* Earnings scorecard */
+.earn { display: grid; gap: 10px; }
+.earn h2 { font: 700 1.25rem/1.2 var(--display); margin: 0; }
+.tbl { overflow-x: auto; border-top: 1px solid var(--rule-strong); }
+.tbl table { width: 100%; min-width: 640px; border-collapse: collapse; font-size: 0.92rem; }
+.tbl th { text-align: left; font: 700 0.7rem/1.2 var(--body); text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-2); padding: 10px 10px 8px 0; border-bottom: 1px solid var(--rule); }
+.tbl td { padding: 10px 10px 10px 0; border-bottom: 1px solid var(--rule); vertical-align: top; }
+.tbl td.tk { font: 500 0.82rem/1.4 var(--data); white-space: nowrap; }
+.tbl td.tk b { display: block; font: 700 0.95rem/1.3 var(--body); }
+.tbl td.mv { font: 500 0.85rem/1.4 var(--data); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.pill { display: inline-block; font: 700 0.68rem/1 var(--body); text-transform: uppercase; letter-spacing: 0.08em; padding: 4px 6px; border: 1px solid currentColor; white-space: nowrap; }
+
 /* Ignore this */
 .ignore { border: 1px dashed var(--rule); padding: 16px 18px; display: grid; gap: 8px; }
 .ignore h2 { font: 700 1.25rem/1.2 var(--display); margin: 0; }
@@ -177,7 +189,7 @@ footer li { overflow-wrap: anywhere; }
       <article class="story">
         <span class="tag mid">Medium impact</span>
         <h3>Guidance is moving stocks more than the earnings themselves</h3>
-        <p>Companies that raised their outlook rose: 3M, Equifax (up almost 12%), Capital One (up about 4% after hours) and Super Micro (up about 14% after hours after lifting quarterly revenue guidance to $18.5–19.5B from $14.5–15.5B). Companies that beat but guided softly fell: GM dropped nearly 7% and Netflix fell about 5–6% after hours on a weaker Q4 revenue forecast and an ad-revenue cut to $2.7B from $3B. Intuitive Surgical fell about 7%.</p>
+        <p>Tuesday's pattern was clear: companies that raised their outlook rose, and companies that beat estimates but gave a soft outlook fell. GM and Netflix both beat on profit and still dropped. Full results are in the earnings scorecard below.</p>
         <p class="why"><b>Why it matters:</b> Super Micro's jump shows AI server demand is still strong even as chip stocks fall. That is supportive for Taiwan's server and chip supply chain. For everything else, the market wants raised outlooks, not just beats.</p>
         <div class="who"><span>SMCI</span><span>NFLX</span><span>GM</span><span>MMM</span><span>EFX</span><span>COF</span><span>ISRG</span></div>
       </article>
@@ -236,6 +248,28 @@ footer li { overflow-wrap: anywhere; }
       </section>
     </aside>
   </div>
+
+  <section class="earn" aria-labelledby="k-earn">
+    <h2 id="k-earn">Earnings scorecard</h2>
+    <p class="note">Results reported on Tuesday 20 Oct, as covered by CNBC and Yahoo Finance. "AH" means after-hours trading.</p>
+    <div class="tbl">
+      <table>
+        <thead><tr><th>Company</th><th>Result</th><th>Stock</th><th>The one-line reason</th></tr></thead>
+        <tbody>
+          <tr><td class="tk"><b>Super Micro</b>SMCI</td><td><span class="pill up">Raised</span></td><td class="mv up">+14% AH</td><td>Lifted quarterly revenue outlook to $18.5–19.5B from $14.5–15.5B, a sign AI server demand is still strong.</td></tr>
+          <tr><td class="tk"><b>Equifax</b>EFX</td><td><span class="pill up">Beat</span></td><td class="mv up">+12%</td><td>Among the day's biggest winners on its results.</td></tr>
+          <tr><td class="tk"><b>SpaceX</b>SPCX</td><td><span class="pill up">Beat</span></td><td class="mv up">+7% AH</td><td>Revenue $14.6B vs $12.87B expected in its first report as a listed company.</td></tr>
+          <tr><td class="tk"><b>Capital One</b>COF</td><td><span class="pill up">Beat</span></td><td class="mv up">+4% AH</td><td>Profit $5.61 a share, up from $4.83 a year ago.</td></tr>
+          <tr><td class="tk"><b>3M</b>MMM</td><td><span class="pill up">Beat · raised</span></td><td class="mv up">Up</td><td>Better-than-expected results and a higher full-year forecast. Helped lead the Dow's 1% gain.</td></tr>
+          <tr><td class="tk"><b>United Airlines</b>UAL</td><td><span class="pill down">Missed</span></td><td class="mv down">−1% AH</td><td>Profit $2.54 a share on $17.88B revenue, both a bit under estimates.</td></tr>
+          <tr><td class="tk"><b>Netflix</b>NFLX</td><td><span class="pill flat">Beat · weak outlook</span></td><td class="mv down">−5–6% AH</td><td>Profit 87¢ vs 82¢ expected, but the Q4 revenue forecast was light and the ad-revenue target was cut to $2.7B from $3B.</td></tr>
+          <tr><td class="tk"><b>General Motors</b>GM</td><td><span class="pill flat">Beat · weak outlook</span></td><td class="mv down">−7%</td><td>Beat on profit and revenue and announced a $20B buyback, but full-year guidance came in below estimates.</td></tr>
+          <tr><td class="tk"><b>Intuitive Surgical</b>ISRG</td><td><span class="pill down">Disappointed</span></td><td class="mv down">−7% AH</td><td>Third-quarter results failed to impress investors.</td></tr>
+          <tr><td class="tk"><b>CATL</b>300750.SZ</td><td><span class="pill flat">Grew · sold off</span></td><td class="mv down">−9%</td><td>Profit up 14.5% and revenue up 58.6%, but shares still fell sharply in China.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
 
   <section class="ignore" aria-labelledby="k-ignore">
     <h2 id="k-ignore">Safe to ignore</h2>
