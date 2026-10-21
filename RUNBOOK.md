@@ -29,7 +29,8 @@ whole page for today's date. The page title stays **Markets & Finance**.
 
 1. Masthead date, "Covers US session of <day date>". Monday: "Weekend recap and week ahead".
 2. US close strip: Dow, S&P 500, Nasdaq, 10-yr yield, dollar index, gold, oil, Nasdaq-100 futures.
-3. The one thing to know: one sentence plus up to three bullets.
+3. The one thing to know: one sentence plus up to three bullets. Its kicker carries
+   `<span class="asof">· updated <Ddd DD Mon>, HH:MM WIB</span>` with the brief's time.
 4. Since this morning feed: reset to empty with
    `<p class="empty">No updates yet. First check at 13:00 WIB.</p>` (Saturday: "Next update Monday 06:30 WIB.")
 5. Top stories: at most five, ranked High / Medium impact, under the kicker
@@ -52,7 +53,11 @@ Then update the website (see "Website" below), including `public/briefs/YYYY-MM-
    (Ddd = Mon, Tue…, the Jakarta day). Remove `class="new"` from all older items first, so only
    the latest check's items show NEW. Remove the empty-state paragraph if it is there.
 3. Update the stamp: `Last updated <Day DD Mon>, HH:MM WIB · Next check HH:MM WIB`.
-4. If a story is **big**, also rewrite "The one thing to know" to reflect it.
+4. Rewrite "The one thing to know" (sentence and bullets) when a story is **big**, or when the
+   current headline has become wrong or misleading because the day's main story changed
+   (e.g. it says chips are selling off and they have rallied all session). Don't rewrite it
+   just to mention smaller new news; that belongs in the feed. Whenever you rewrite it,
+   set its `asof` label to the check's time.
 5. If nothing passes the filter, change only the stamp.
 
 **Big story** means one of: a Fed or other central-bank surprise; S&P 500, Nasdaq,
