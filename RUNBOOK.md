@@ -59,7 +59,7 @@ After publishing, update the website (see "Website" below), `public/index.html` 
 
 ## Website (Cloudflare)
 
-The same page is served by the Cloudflare Worker `finance-news` (static files in `public/`,
+The same page is served at https://finance-news.aditihs1404.workers.dev by the Cloudflare Worker `finance-news` (static files in `public/`,
 config in `wrangler.jsonc`), built from repo `aditihs1404-arch/Finance-News`,
 branch `claude/modest-euler-fqoql0`. Cloudflare redeploys on every push. Every run updates it after publishing:
 

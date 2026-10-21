@@ -1,5 +1,8 @@
 # The 6:30 Brief
 
+**Website:** https://finance-news.aditihs1404.workers.dev  
+**Claude page:** https://claude.ai/artifact/NuPN4PCUxinTeARjfaTZjk
+
 A five-minute daily market brief, ready by 6:30am Jakarta time (WIB).
 
 - **Covers:** the previous US session, plus what it means for Japan, Korea, Taiwan and China that morning.
