@@ -12,4 +12,6 @@ A five-minute daily market brief, ready by 6:30am Jakarta time (WIB).
 
 The latest brief is `public/index.html`, served by a Cloudflare Worker that redeploys on every push. Each day's brief is archived in [`public/briefs/`](public/briefs/) as `YYYY-MM-DD.html`.
 
+On the website the market strip updates every minute from Yahoo Finance prices (`worker/index.js` serves `/api/quotes`; `public/live.js` refreshes the strip).
+
 These summaries are for personal reading, not investment advice.

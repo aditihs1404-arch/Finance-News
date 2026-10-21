@@ -73,6 +73,11 @@ branch `claude/modest-euler-fqoql0`. Cloudflare redeploys on every push. Every r
    `git push origin claude/modest-euler-fqoql0`.
 4. If any of this fails, the claude.ai page still counts as done; say so in one line of the final reply.
 
+Live prices: on the website, `public/live.js` (loaded by `worker/index.js`) replaces the
+numbers in `section.strip` with prices from `/api/quotes` every minute. Keep that section's
+markup (`section.strip`, `.kicker`, `.tape`, `.note`) so it keeps working. Don't edit
+`public/live.js`, `worker/` or `wrangler.jsonc` during scheduled runs.
+
 ## Notifications
 
 When there is a big story, the final reply of the run starts with
