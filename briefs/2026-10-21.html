@@ -1,0 +1,263 @@
+<title>The 6:30 Brief</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,600;6..72,700&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a single-edition newspaper page. Masthead, a market strip, the lead line,
+   then stories in a main column with a narrow Asia + calendar rail beside them. */
+:root {
+  --paper: #fbfbf8;
+  --ink: #16181d;
+  --ink-2: #4a4f59;
+  --rule: #d9d9d2;
+  --rule-strong: #16181d;
+  --accent: #1f3a5f;      /* deep ink blue, used for kicker labels and links */
+  --tint: #eef1f5;
+  --up: #0f7a3d;
+  --down: #b42318;
+  --hi: #b42318;
+  --mid: #a15c07;
+  --lo: #6b7280;
+  --display: "Newsreader", "Georgia", "Times New Roman", serif;
+  --body: "Public Sans", "Helvetica Neue", Arial, sans-serif;
+  --data: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #121417; --ink: #ecebe6; --ink-2: #a8acb4; --rule: #2c3036; --rule-strong: #ecebe6;
+    --accent: #8fb3e0; --tint: #1b2027; --up: #4ccb7f; --down: #f2766b; --hi: #f2766b; --mid: #e3a33b; --lo: #9aa0aa;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #121417; --ink: #ecebe6; --ink-2: #a8acb4; --rule: #2c3036; --rule-strong: #ecebe6;
+  --accent: #8fb3e0; --tint: #1b2027; --up: #4ccb7f; --down: #f2766b; --hi: #f2766b; --mid: #e3a33b; --lo: #9aa0aa;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--paper); color: var(--ink);
+  font: 400 16px/1.6 var(--body);
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 24px 56px;
+}
+.page { max-width: 1080px; margin: 0 auto; display: flex; flex-direction: column; gap: 28px; }
+a { color: var(--accent); text-underline-offset: 2px; }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* Masthead */
+.mast { border-bottom: 3px double var(--rule-strong); padding-bottom: 14px; display: grid; gap: 6px; text-align: center; }
+.mast h1 { font: 700 clamp(2.4rem, 7vw, 4rem)/1 var(--display); letter-spacing: -0.02em; margin: 0; }
+.mast .meta { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 18px; font: 500 0.78rem/1.4 var(--body); text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-2); }
+
+/* Kicker labels */
+.kicker { font: 700 0.72rem/1.2 var(--body); text-transform: uppercase; letter-spacing: 0.12em; color: var(--accent); margin: 0 0 10px; }
+
+/* Market strip */
+.strip { display: grid; gap: 10px; }
+.tape { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); border-top: 1px solid var(--rule); border-left: 1px solid var(--rule); }
+.q { padding: 10px 12px; border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule); display: grid; gap: 2px; min-width: 0; }
+.q .n { font: 600 0.74rem/1.2 var(--body); text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-2); }
+.q .v { font: 500 1rem/1.3 var(--data); font-variant-numeric: tabular-nums; }
+.q .c { font: 500 0.82rem/1.3 var(--data); font-variant-numeric: tabular-nums; }
+.up { color: var(--up); } .down { color: var(--down); } .flat { color: var(--ink-2); }
+.note { font-size: 0.8rem; color: var(--ink-2); margin: 0; }
+
+/* Lead */
+.lead { border-top: 1px solid var(--rule-strong); border-bottom: 1px solid var(--rule); padding-block: 18px; }
+.lead p.big { font: 600 clamp(1.4rem, 3.4vw, 2rem)/1.25 var(--display); margin: 0; text-wrap: balance; max-width: 30ch; }
+.lead ul { margin: 14px 0 0; padding-left: 1.1em; display: grid; gap: 4px; max-width: 70ch; }
+
+/* Main grid */
+.grid { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 36px; align-items: start; }
+@media (max-width: 860px) { .grid { grid-template-columns: minmax(0, 1fr); } }
+
+.stories { display: flex; flex-direction: column; }
+.story { padding-block: 18px; border-top: 1px solid var(--rule); display: grid; gap: 8px; min-width: 0; }
+.story:first-of-type { border-top: 0; padding-top: 0; }
+.story h3 { font: 700 clamp(1.25rem, 2.6vw, 1.5rem)/1.2 var(--display); margin: 0; text-wrap: balance; }
+.story p { margin: 0; max-width: 68ch; }
+.story .why { background: var(--tint); padding: 10px 12px; font-size: 0.95rem; }
+.story .why b { font-weight: 700; }
+.who { display: flex; flex-wrap: wrap; gap: 6px; font: 500 0.78rem/1 var(--data); }
+.who span { border: 1px solid var(--rule); padding: 4px 6px; }
+.tag { display: inline-flex; align-items: center; gap: 6px; font: 700 0.7rem/1 var(--body); text-transform: uppercase; letter-spacing: 0.1em; }
+.tag::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
+.tag.hi { color: var(--hi); } .tag.mid { color: var(--mid); } .tag.lo { color: var(--lo); }
+
+/* Rail */
+.rail { display: flex; flex-direction: column; gap: 28px; border-left: 1px solid var(--rule); padding-left: 24px; min-width: 0; }
+@media (max-width: 860px) { .rail { border-left: 0; padding-left: 0; border-top: 1px solid var(--rule-strong); padding-top: 20px; } }
+.rail h2 { font: 700 1.25rem/1.2 var(--display); margin: 0 0 4px; }
+.country { padding-block: 10px; border-top: 1px solid var(--rule); display: grid; gap: 4px; }
+.country:first-of-type { border-top: 0; }
+.country .row { display: flex; justify-content: space-between; gap: 8px; align-items: baseline; }
+.country .row strong { font: 700 0.95rem/1.3 var(--body); }
+.country .row span { font: 500 0.82rem/1.3 var(--data); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.country p { margin: 0; font-size: 0.9rem; color: var(--ink-2); }
+
+.cal { list-style: none; margin: 0; padding: 0; display: grid; }
+.cal li { display: grid; grid-template-columns: 76px minmax(0, 1fr); gap: 10px; padding-block: 10px; border-top: 1px solid var(--rule); }
+.cal li:first-child { border-top: 0; }
+.cal time { font: 500 0.78rem/1.35 var(--data); color: var(--accent); }
+.cal b { display: block; font-size: 0.95rem; }
+.cal span { font-size: 0.88rem; color: var(--ink-2); }
+
+/* Ignore this */
+.ignore { border: 1px dashed var(--rule); padding: 16px 18px; display: grid; gap: 8px; }
+.ignore h2 { font: 700 1.25rem/1.2 var(--display); margin: 0; }
+.ignore ul { margin: 0; padding-left: 1.1em; display: grid; gap: 6px; max-width: 75ch; color: var(--ink-2); }
+.ignore b { color: var(--ink); }
+
+footer { border-top: 1px solid var(--rule-strong); padding-top: 14px; display: grid; gap: 8px; font-size: 0.82rem; color: var(--ink-2); }
+footer ul { margin: 0; padding-left: 1.1em; display: grid; gap: 2px; }
+footer li { overflow-wrap: anywhere; }
+</style>
+
+<div class="page">
+
+  <header class="mast">
+    <h1>The 6:30 Brief</h1>
+    <div class="meta">
+      <span>Wednesday, 21 October 2026</span>
+      <span>Edition for Jakarta (WIB)</span>
+      <span>Covers US session of Tue 20 Oct</span>
+      <span>5-minute read</span>
+    </div>
+  </header>
+
+  <section class="strip" aria-labelledby="k-close">
+    <p class="kicker" id="k-close">US close · Tuesday 20 Oct</p>
+    <div class="tape">
+      <div class="q"><span class="n">Dow</span><span class="v">52,495.88</span><span class="c up">+529.85 · +1.02%</span></div>
+      <div class="q"><span class="n">S&amp;P 500</span><span class="v">7,712.57</span><span class="c up">+0.28%</span></div>
+      <div class="q"><span class="n">Nasdaq</span><span class="v">26,424.82</span><span class="c flat">−0.02%</span></div>
+      <div class="q"><span class="n">10-yr yield</span><span class="v">≈5.11%</span><span class="c up">−2 bp</span></div>
+      <div class="q"><span class="n">Dollar index</span><span class="v">101.73</span><span class="c down">−0.3%</span></div>
+      <div class="q"><span class="n">Gold</span><span class="v">≈$4,140</span><span class="c down">−0.5%</span></div>
+      <div class="q"><span class="n">Oil</span><span class="v">Lower</span><span class="c flat">on Iran-talks hopes</span></div>
+      <div class="q"><span class="n">Nasdaq-100 fut.</span><span class="v">After hours</span><span class="c up">+1%+</span></div>
+    </div>
+    <p class="note">≈ marks late-session figures from news reports, not official settlements. A lower yield is shown green because it is good for stocks.</p>
+  </section>
+
+  <section class="lead" aria-labelledby="k-one">
+    <p class="kicker" id="k-one">The one thing to know</p>
+    <p class="big">Money is rotating out of chip stocks and into companies that beat on earnings, while 5% bond yields keep everyone cautious.</p>
+    <ul>
+      <li>The Dow rallied 1% on earnings, but the Nasdaq went nowhere as tech stayed under pressure.</li>
+      <li>Asia's chip rout hit Korea hardest on Tuesday (Kospi −3.7%). Korea is bouncing this morning.</li>
+      <li>Tesla reports results early Thursday morning, Jakarta time.</li>
+    </ul>
+  </section>
+
+  <div class="grid">
+    <main class="stories" aria-label="Top stories">
+      <p class="kicker">Top stories, ranked by impact</p>
+
+      <article class="story">
+        <span class="tag hi">High impact</span>
+        <h3>The chip sell-off is concentrated in Asia's memory makers</h3>
+        <p>Korea's Kospi fell 3.7% on Tuesday to 5,552.74, with SK hynix down 4.2% and Samsung down 3.0%. That came after a 7.6% crash on 15 October. Japan's Kioxia has also been hit hard. The reasons cited are fears of Chinese memory-chip competition, Samsung and SK hynix share buybacks ending, and doubts about who keeps paying for AI build-outs.</p>
+        <p class="why"><b>Why it matters:</b> Korea, Taiwan and Japan's indexes lean heavily on chips, so this one theme drives most of the region. Korea is up about 2.7% in early Wednesday trading. Watch whether that bounce holds into the close.</p>
+        <div class="who"><span>SK hynix</span><span>Samsung</span><span>Kioxia</span><span>TSMC</span><span>Micron</span></div>
+      </article>
+
+      <article class="story">
+        <span class="tag hi">High impact</span>
+        <h3>Bond yields near 24-year highs keep pressure on the Fed and stocks</h3>
+        <p>The 10-year Treasury yield is about 5.1%, just under its highest level since 2002. The Fed raised rates in September for the first time since 2023. Traders now see an 82% chance of no change at the 27–28 October meeting, but an 89% chance of another hike by December.</p>
+        <p class="why"><b>Why it matters:</b> High yields make stocks look expensive, especially growth and tech, and they keep the dollar strong against Asian currencies. Any surprise from the Fed next week moves everything.</p>
+        <div class="who"><span>Tech / growth</span><span>Banks</span><span>USD/JPY</span><span>USD/KRW</span></div>
+      </article>
+
+      <article class="story">
+        <span class="tag mid">Medium impact</span>
+        <h3>Guidance is moving stocks more than the earnings themselves</h3>
+        <p>Companies that raised their outlook rose: 3M, Equifax (up almost 12%), Capital One (up about 4% after hours) and Super Micro (up about 14% after hours after lifting quarterly revenue guidance to $18.5–19.5B from $14.5–15.5B). Companies that beat but guided softly fell: GM dropped nearly 7% and Netflix fell about 5–6% after hours on a weaker Q4 revenue forecast and an ad-revenue cut to $2.7B from $3B. Intuitive Surgical fell about 7%.</p>
+        <p class="why"><b>Why it matters:</b> Super Micro's jump shows AI server demand is still strong even as chip stocks fall. That is supportive for Taiwan's server and chip supply chain. For everything else, the market wants raised outlooks, not just beats.</p>
+        <div class="who"><span>SMCI</span><span>NFLX</span><span>GM</span><span>MMM</span><span>EFX</span><span>COF</span><span>ISRG</span></div>
+      </article>
+
+      <article class="story">
+        <span class="tag mid">Medium impact</span>
+        <h3>US–Iran talks are the swing factor for oil</h3>
+        <p>Oil eased on Tuesday after reports that mediators, working through Pakistan and Qatar, are trying to bring the US and Iran to talks. Signals are mixed: Secretary of State Rubio called a deal "extremely difficult", and Iran says the waterway it has closed stays shut until its conditions are met. Brent was trading around $110 earlier in the week.</p>
+        <p class="why"><b>Why it matters:</b> Oil above $100 feeds inflation, which keeps the Fed hawkish and yields high. Japan, Korea and Taiwan import nearly all their oil, so a real breakthrough would be a clear plus for Asia.</p>
+        <div class="who"><span>Oil</span><span>Airlines</span><span>Energy</span><span>Asian importers</span></div>
+      </article>
+
+      <article class="story">
+        <span class="tag mid">Medium impact</span>
+        <h3>SpaceX's first earnings beat lifts Nasdaq futures</h3>
+        <p>In its first quarter as a listed company, SpaceX reported $14.6B in revenue against $12.87B expected, with $2.8B operating income. Shares rose about 7% after hours, and Nasdaq-100 futures climbed more than 1% overnight.</p>
+        <p class="why"><b>Why it matters:</b> It gives tech a positive start to Wednesday's US session. Tesla reports after Wednesday's close, so the spotlight stays on Musk's companies.</p>
+        <div class="who"><span>SPCX</span><span>TSLA</span><span>Nasdaq-100</span></div>
+      </article>
+    </main>
+
+    <aside class="rail">
+      <section aria-labelledby="k-asia">
+        <h2 id="k-asia">Asia today</h2>
+        <p class="note">Tuesday's close, then early Wednesday trade.</p>
+        <div class="country">
+          <div class="row"><strong>Korea · Kospi</strong><span><span class="down">−3.7%</span> → <span class="up">+2.7%</span></span></div>
+          <p>5,552.74 at Tuesday's close. Rebounding this morning after a brutal week for chips.</p>
+        </div>
+        <div class="country">
+          <div class="row"><strong>Japan · Nikkei 225</strong><span><span class="down">−1.3%</span> → <span class="up">+0.8–1.4%</span></span></div>
+          <p>64,075.52 at Tuesday's close. Kioxia and other chip names led the losses, and they lead the bounce today.</p>
+        </div>
+        <div class="country">
+          <div class="row"><strong>Taiwan · Taiex</strong><span class="flat">≈ flat</span></div>
+          <p>Edged higher on Tuesday even as TSMC slipped. Super Micro's raised outlook is a positive read for Taiwan's AI server suppliers.</p>
+        </div>
+        <div class="country">
+          <div class="row"><strong>Hong Kong · Hang Seng</strong><span><span class="down">−1.3%</span> → <span class="down">−0.35%</span></span></div>
+          <p>23,867.74 at Tuesday's close. Still drifting lower.</p>
+        </div>
+        <div class="country">
+          <div class="row"><strong>China · CSI 300</strong><span class="flat">flat</span></div>
+          <p>A record 10-week losing streak, about 17% below its June peak. State-linked funds appear to be buying. Q3 GDP grew 4.5%, slightly above forecasts. CATL fell about 9% despite higher profits.</p>
+        </div>
+      </section>
+
+      <section aria-labelledby="k-cal">
+        <h2 id="k-cal">Coming up</h2>
+        <p class="note">All times Jakarta (WIB).</p>
+        <ul class="cal">
+          <li><time>Thu 22 Oct<br>03:00</time><div><b>Tesla Q3 results</b><span>Expected EPS about $0.44 on $27.8B revenue. The key number is cash flow (forecast around −$4.5B). Call at 04:30.</span></div></li>
+          <li><time>This week</time><div><b>Meta Platforms results</b><span>The second "Magnificent 7" report this week. Its AI spending plans matter for the whole chip sector.</span></div></li>
+          <li><time>Thu 29 Oct<br>01:00</time><div><b>Fed rate decision</b><span>82% priced for no change. Watch for hints about a December hike.</span></div></li>
+        </ul>
+      </section>
+    </aside>
+  </div>
+
+  <section class="ignore" aria-labelledby="k-ignore">
+    <h2 id="k-ignore">Safe to ignore</h2>
+    <ul>
+      <li><b>"Tesla and SpaceX to merge."</b> Both companies have only formed committees to study it. No terms exist, and a deal needs approval from 50% of all Tesla shares. Price targets like "$480 a share" are speculation.</li>
+      <li><b>Daily quotes from US and Iranian officials.</b> Hopes for talks have come and gone many times. Wait for an actual meeting or for the waterway to reopen.</li>
+      <li><b>"Chip stocks are dead" takes.</b> The sell-off is real, but some big banks still expect AI stocks to be much higher in 6–12 months. Treat both extremes with caution.</li>
+    </ul>
+  </section>
+
+  <footer>
+    <span>Sources: CNBC and Yahoo Finance. These summaries are for your own reading, not buy or sell advice. Figures marked ≈ are approximate.</span>
+    <ul>
+      <li><a href="https://finance.yahoo.com/markets/stocks/articles/markets-news-oct-20-2026-103252254.html" target="_blank" rel="noopener">Yahoo Finance: Markets news, Oct. 20, 2026</a></li>
+      <li><a href="https://www.cnbc.com/2026/10/20/stock-market-today-live-updates.html" target="_blank" rel="noopener">CNBC: Stock market today, live updates</a></li>
+      <li><a href="https://www.cnbc.com/2026/10/20/stocks-making-the-biggest-moves-after-hours-isrg-nflx-spcx.html" target="_blank" rel="noopener">CNBC: Biggest moves after hours</a></li>
+      <li><a href="https://finance.yahoo.com/markets/stocks/article/global-chip-sell-off-deepens-as-south-korean-market-plunges-024927049.html" target="_blank" rel="noopener">Yahoo Finance: Global chip sell-off deepens</a></li>
+      <li><a href="https://www.cnbc.com/2026/10/20/gold-inches-up-on-softer-dollar-as-investors-assess-fed-rate-outlook.html" target="_blank" rel="noopener">CNBC: Gold and the Fed rate outlook</a></li>
+      <li><a href="https://finance.yahoo.com/markets/stocks/article/netflix-stock-sinks-after-announcing-q3-earnings-q4-revenue-forecast-falls-short-of-estimates-204545261.html" target="_blank" rel="noopener">Yahoo Finance: Netflix Q3</a></li>
+      <li><a href="https://finance.yahoo.com/markets/stocks/articles/gm-stock-falls-despite-third-110940703.html" target="_blank" rel="noopener">Yahoo Finance: GM Q3</a></li>
+      <li><a href="https://www.cnbc.com/2026/10/20/spacex-spcx-earnings-live-updates-q3-2026html.html" target="_blank" rel="noopener">CNBC: SpaceX earnings and merger committees</a></li>
+      <li><a href="https://finance.yahoo.com/markets/stocks/article/tesla-q3-preview-delivery-outlook-cash-flow-and-a-dash-of-merger-speculation-on-tap-160637755.html" target="_blank" rel="noopener">Yahoo Finance: Tesla Q3 preview</a></li>
+    </ul>
+  </footer>
+</div>
