@@ -10,6 +10,9 @@ Reader: an individual investor in Jakarta who wants to read one page and skip ev
   sites from the cloud container, and MarketWatch/WSJ are blocked, so don't try them.
 - **Times are Jakarta time (WIB, UTC+7)** everywhere on the page.
   US Eastern is UTC−4 until 1 Nov 2026, then UTC−5 (US open 20:30 WIB, then 21:30 WIB).
+- **Check market hours.** US stocks trade only about 20:30–03:00 WIB (21:30–04:00 after 1 Nov),
+  Monday–Friday US time. Outside those hours there is no US intraday move: only futures or the
+  previous close. Check the date on every figure, and don't repeat numbers already on the page.
 - **Filter hard.** Leave out anything that doesn't affect US markets, rates, big sectors,
   or Japan / Korea / Taiwan / China. No "safe to ignore" list: unimportant news is simply left out.
 - **Never invent numbers.** If sources disagree or no figure is found, describe it in words
