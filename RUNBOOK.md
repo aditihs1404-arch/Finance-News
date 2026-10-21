@@ -38,8 +38,7 @@ Rewrite the whole page for today's date:
 8. Earnings scorecard: only companies CNBC / Yahoo Finance covered; skip the section on days with none.
 9. Footer: source links actually used.
 
-Then archive the page to GitHub repo `aditihs1404-arch/Finance-News`, branch
-`claude/modest-euler-fqoql0`, path `briefs/YYYY-MM-DD.html`.
+Then update the website (see "Website" below), including `briefs/YYYY-MM-DD.html`.
 
 ## News checks (13:00, 20:30 and 01:00 WIB)
 
@@ -56,6 +55,25 @@ Nikkei, Kospi or Taiex moving more than 2%; a mega-cap (NVDA, AAPL, MSFT, GOOGL,
 META, TSLA, TSM, Samsung) moving more than 7% on news; a major geopolitical event
 (e.g. US–Iran deal or escalation, Taiwan Strait); oil moving more than 5%.
 
-Notifications: when there is a big story, the final reply of the run starts with
+After publishing, update the website (see "Website" below), `index.html` only.
+
+## Website (GitHub Pages)
+
+The same page is served from GitHub Pages out of repo `aditihs1404-arch/Finance-News`,
+branch `claude/modest-euler-fqoql0`, folder `/` (root). Every run updates it after publishing:
+
+1. `add_repo` (owner `aditihs1404-arch`, repo `Finance-News`, access `push`), then
+   `git clone --depth 1 -b claude/modest-euler-fqoql0 https://github.com/aditihs1404-arch/Finance-News`.
+2. Write `index.html` as the published page wrapped in a full document:
+   `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"></head><body>`
+   + the page content exactly as published + `</body></html>`.
+   The morning brief also writes the same file to `briefs/YYYY-MM-DD.html` (Jakarta date).
+3. Commit ("Brief YYYY-MM-DD" or "News check YYYY-MM-DD HH:MM WIB") and
+   `git push origin claude/modest-euler-fqoql0`.
+4. If any of this fails, the claude.ai page still counts as done; say so in one line of the final reply.
+
+## Notifications
+
+ when there is a big story, the final reply of the run starts with
 `BIG STORY:` and one line on it. Otherwise the final reply is exactly
 `No big story. Page updated.`
