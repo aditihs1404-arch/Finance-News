@@ -1,9 +1,9 @@
-// Cloudflare Worker config: serves this repo's static files (index.html, briefs/).
+// Cloudflare Worker config: serves the static site in public/ (index.html, briefs/).
 {
   "name": "finance-news",
   "compatibility_date": "2026-10-01",
   "assets": {
-    "directory": "./",
+    "directory": "./public",
     "not_found_handling": "404-page"
   }
 }
