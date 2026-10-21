@@ -1,4 +1,4 @@
-# Runbook for the scheduled runs
+# Runbook for the scheduled runs (Markets & Finance)
 
 The page: https://claude.ai/artifact/NuPN4PCUxinTeARjfaTZjk (private, owner only).
 Reader: an individual investor in Jakarta who wants to read one page and skip every news site.
@@ -24,14 +24,18 @@ Reader: an individual investor in Jakarta who wants to read one page and skip ev
 
 ## Morning brief (06:30 WIB, Monday to Saturday)
 
-Rewrite the whole page for today's date:
+Before rewriting, archive yesterday's final page (see "Website" below). Then rewrite the
+whole page for today's date. The page title stays **Markets & Finance**.
 
 1. Masthead date, "Covers US session of <day date>". Monday: "Weekend recap and week ahead".
 2. US close strip: Dow, S&P 500, Nasdaq, 10-yr yield, dollar index, gold, oil, Nasdaq-100 futures.
 3. The one thing to know: one sentence plus up to three bullets.
 4. Since this morning feed: reset to empty with
    `<p class="empty">No updates yet. First check at 13:00 WIB.</p>` (Saturday: "Next update Monday 06:30 WIB.")
-5. Top stories: at most five, ranked High / Medium impact, each with what happened,
+5. Top stories: at most five, ranked High / Medium impact, under the kicker
+   "Morning brief · top stories, ranked by impact" and the line
+   `<p class="written">Written <Day DD Mon>, HH:MM WIB. For anything newer, see "Since this morning" above.</p>`.
+   Each story has what happened,
    "Why it matters", and the affected tickers or markets.
 6. Asia today rail: Korea, Japan, Taiwan, Hong Kong, China — previous close and the outlook.
 7. Coming up: market-moving events only, in WIB.
@@ -44,8 +48,9 @@ Then update the website (see "Website" below), including `public/briefs/YYYY-MM-
 
 1. Read the live page. Search for news since the time in its "Last updated" stamp.
 2. If there is news that passes the filter, add items to the **top** of the feed list:
-   `<li><time>HH:MM</time><div><span class="tag hi|mid">High|Medium impact</span><b>Headline</b><p>Two sentences: what happened and why it matters.</p></div></li>`
-   Remove the empty-state paragraph if it is there.
+   `<li class="new"><time>Ddd<br>HH:MM</time><div><span class="tag hi|mid">High|Medium impact</span><b>Headline</b><p>Two sentences: what happened and why it matters.</p></div></li>`
+   (Ddd = Mon, Tue…, the Jakarta day). Remove `class="new"` from all older items first, so only
+   the latest check's items show NEW. Remove the empty-state paragraph if it is there.
 3. Update the stamp: `Last updated <Day DD Mon>, HH:MM WIB · Next check HH:MM WIB`.
 4. If a story is **big**, also rewrite "The one thing to know" to reflect it.
 5. If nothing passes the filter, change only the stamp.
@@ -63,12 +68,19 @@ The same page is served at https://finance-news.aditihs1404.workers.dev by the C
 config in `wrangler.jsonc`), built from repo `aditihs1404-arch/Finance-News`,
 branch `claude/modest-euler-fqoql0`. Cloudflare redeploys on every push. Every run updates it after publishing:
 
-1. `add_repo` (owner `aditihs1404-arch`, repo `Finance-News`, access `push`), then
+1. **Call `add_repo` (owner `aditihs1404-arch`, repo `Finance-News`, access `push`) BEFORE cloning.**
+   Without it the clone works but the push is refused. Then
    `git clone --depth 1 -b claude/modest-euler-fqoql0 https://github.com/aditihs1404-arch/Finance-News`.
+   If the push is still refused, call `add_repo` again and retry the push once.
 2. Write `public/index.html` as the published page wrapped in a full document:
    `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"></head><body>`
    + the page content exactly as published + `</body></html>`.
-   The morning brief also writes the same file to `public/briefs/YYYY-MM-DD.html` (Jakarta date).
+   **Morning brief only, before overwriting `public/index.html`:** copy the current
+   `public/index.html` to `public/briefs/YYYY-MM-DD.html`, where the date is the edition date in
+   that page's masthead (yesterday's, or Saturday's on Monday). Then add a line at the top of the
+   list between `ARCHIVE:START` and `ARCHIVE:END` in `public/briefs/index.html`:
+   `<li><a href="/briefs/YYYY-MM-DD.html">Weekday, DD Month YYYY</a><span>N updates</span></li>`
+   (N = number of feed items on that page) and delete the `<p class="empty">` line if present.
 3. Commit ("Brief YYYY-MM-DD" or "News check YYYY-MM-DD HH:MM WIB") and
    `git push origin claude/modest-euler-fqoql0`.
 4. If any of this fails, the claude.ai page still counts as done; say so in one line of the final reply.
