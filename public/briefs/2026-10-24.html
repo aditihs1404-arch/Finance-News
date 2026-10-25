@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+</head>
+<body>
+<title>Markets &amp; Finance</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,600;6..72,700&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a single-edition newspaper page. Masthead, a market strip, the lead line,
+   then stories in a main column with a narrow Asia + calendar rail beside them. */
+:root {
+  --paper: #fbfbf8;
+  --ink: #16181d;
+  --ink-2: #4a4f59;
+  --rule: #d9d9d2;
+  --rule-strong: #16181d;
+  --accent: #1f3a5f;      /* deep ink blue, used for kicker labels and links */
+  --tint: #eef1f5;
+  --up: #0f7a3d;
+  --down: #b42318;
+  --hi: #b42318;
+  --mid: #a15c07;
+  --lo: #6b7280;
+  --display: "Newsreader", "Georgia", "Times New Roman", serif;
+  --body: "Public Sans", "Helvetica Neue", Arial, sans-serif;
+  --data: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #121417; --ink: #ecebe6; --ink-2: #a8acb4; --rule: #2c3036; --rule-strong: #ecebe6;
+    --accent: #8fb3e0; --tint: #1b2027; --up: #4ccb7f; --down: #f2766b; --hi: #f2766b; --mid: #e3a33b; --lo: #9aa0aa;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #121417; --ink: #ecebe6; --ink-2: #a8acb4; --rule: #2c3036; --rule-strong: #ecebe6;
+  --accent: #8fb3e0; --tint: #1b2027; --up: #4ccb7f; --down: #f2766b; --hi: #f2766b; --mid: #e3a33b; --lo: #9aa0aa;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--paper); color: var(--ink);
+  font: 400 16px/1.6 var(--body);
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 24px 56px;
+}
+.page { max-width: 1080px; margin: 0 auto; display: flex; flex-direction: column; gap: 28px; }
+a { color: var(--accent); text-underline-offset: 2px; }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* Masthead */
+.mast { border-bottom: 3px double var(--rule-strong); padding-bottom: 14px; display: grid; gap: 6px; text-align: center; }
+.mast h1 { font: 700 clamp(2.4rem, 7vw, 4rem)/1 var(--display); letter-spacing: -0.02em; margin: 0; }
+.mast .meta { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 18px; font: 500 0.78rem/1.4 var(--body); text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-2); }
+
+/* Kicker labels */
+.kicker { font: 700 0.72rem/1.2 var(--body); text-transform: uppercase; letter-spacing: 0.12em; color: var(--accent); margin: 0 0 10px; }
+
+/* Market strip */
+.strip { display: grid; gap: 10px; }
+.tape { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); border-top: 1px solid var(--rule); border-left: 1px solid var(--rule); }
+.q { padding: 10px 12px; border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule); display: grid; gap: 2px; min-width: 0; }
+.q .n { font: 600 0.74rem/1.2 var(--body); text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-2); }
+.q .v { font: 500 1rem/1.3 var(--data); font-variant-numeric: tabular-nums; }
+.q .c { font: 500 0.82rem/1.3 var(--data); font-variant-numeric: tabular-nums; }
+.up { color: var(--up); } .down { color: var(--down); } .flat { color: var(--ink-2); }
+.note { font-size: 0.8rem; color: var(--ink-2); margin: 0; }
+
+/* Lead */
+.lead { border-top: 1px solid var(--rule-strong); border-bottom: 1px solid var(--rule); padding-block: 18px; }
+.lead p.big { font: 600 clamp(1.4rem, 3.4vw, 2rem)/1.25 var(--display); margin: 0; text-wrap: balance; max-width: 30ch; }
+.lead ul { margin: 14px 0 0; padding-left: 1.1em; display: grid; gap: 4px; max-width: 70ch; }
+
+/* Main grid */
+.grid { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 36px; align-items: start; }
+@media (max-width: 860px) { .grid { grid-template-columns: minmax(0, 1fr); } }
+
+.stories { display: flex; flex-direction: column; }
+.story { padding-block: 18px; border-top: 1px solid var(--rule); display: grid; gap: 8px; min-width: 0; }
+.story:first-of-type { border-top: 0; padding-top: 0; }
+.story h3 { font: 700 clamp(1.25rem, 2.6vw, 1.5rem)/1.2 var(--display); margin: 0; text-wrap: balance; }
+.story p { margin: 0; max-width: 68ch; }
+.story .why { background: var(--tint); padding: 10px 12px; font-size: 0.95rem; }
+.story .why b { font-weight: 700; }
+.who { display: flex; flex-wrap: wrap; gap: 6px; font: 500 0.78rem/1 var(--data); }
+.who span { border: 1px solid var(--rule); padding: 4px 6px; }
+.tag { display: inline-flex; align-items: center; gap: 6px; font: 700 0.7rem/1 var(--body); text-transform: uppercase; letter-spacing: 0.1em; }
+.tag::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
+.tag.hi { color: var(--hi); } .tag.mid { color: var(--mid); } .tag.lo { color: var(--lo); }
+
+/* Rail */
+.rail { display: flex; flex-direction: column; gap: 28px; border-left: 1px solid var(--rule); padding-left: 24px; min-width: 0; }
+@media (max-width: 860px) { .rail { border-left: 0; padding-left: 0; border-top: 1px solid var(--rule-strong); padding-top: 20px; } }
+.rail h2 { font: 700 1.25rem/1.2 var(--display); margin: 0 0 4px; }
+.country { padding-block: 10px; border-top: 1px solid var(--rule); display: grid; gap: 4px; }
+.country:first-of-type { border-top: 0; }
+.country .row { display: flex; justify-content: space-between; gap: 8px; align-items: baseline; }
+.country .row strong { font: 700 0.95rem/1.3 var(--body); }
+.country .row span { font: 500 0.82rem/1.3 var(--data); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.country p { margin: 0; font-size: 0.9rem; color: var(--ink-2); }
+
+.cal { list-style: none; margin: 0; padding: 0; display: grid; }
+.cal li { display: grid; grid-template-columns: 76px minmax(0, 1fr); gap: 10px; padding-block: 10px; border-top: 1px solid var(--rule); }
+.cal li:first-child { border-top: 0; }
+.cal time { font: 500 0.78rem/1.35 var(--data); color: var(--accent); }
+.cal b { display: block; font-size: 0.95rem; }
+.cal span { font-size: 0.88rem; color: var(--ink-2); }
+
+/* Since this morning feed */
+.feed { display: grid; gap: 10px; border: 1px solid var(--rule-strong); padding: 14px 16px; }
+.feed-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 4px 16px; }
+.feed-head h2 { font: 700 1.25rem/1.2 var(--display); margin: 0; }
+.stamp { font: 500 0.78rem/1.3 var(--data); color: var(--ink-2); }
+.feed ol { list-style: none; margin: 0; padding: 0; display: grid; }
+.feed li { display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 12px; padding-block: 10px; border-top: 1px solid var(--rule); }
+.feed li:first-child { border-top: 0; padding-top: 2px; }
+.feed time { font: 500 0.8rem/1.5 var(--data); color: var(--accent); }
+.feed b { display: block; font: 700 1rem/1.35 var(--body); }
+.feed p { margin: 2px 0 0; font-size: 0.93rem; color: var(--ink-2); max-width: 70ch; }
+.feed .empty { color: var(--ink-2); font-size: 0.92rem; margin: 0; }
+.feed .how { margin: 0; font-size: 0.82rem; color: var(--ink-2); }
+.feed li.new time::after { content: "NEW"; display: block; width: max-content; margin-top: 6px; padding: 3px 5px; font: 700 0.62rem/1 var(--body); letter-spacing: 0.1em; color: var(--paper); background: var(--accent); }
+.kicker .asof { font-weight: 500; letter-spacing: 0.06em; color: var(--ink-2); }
+.stories .written { margin: -4px 0 6px; font-size: 0.82rem; color: var(--ink-2); }
+
+/* Earnings scorecard */
+.earn { display: grid; gap: 10px; }
+.earn h2 { font: 700 1.25rem/1.2 var(--display); margin: 0; }
+.tbl { overflow-x: auto; border-top: 1px solid var(--rule-strong); }
+.tbl table { width: 100%; min-width: 640px; border-collapse: collapse; font-size: 0.92rem; }
+.tbl th { text-align: left; font: 700 0.7rem/1.2 var(--body); text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-2); padding: 10px 10px 8px 0; border-bottom: 1px solid var(--rule); }
+.tbl td { padding: 10px 10px 10px 0; border-bottom: 1px solid var(--rule); vertical-align: top; }
+.tbl td.tk { font: 500 0.82rem/1.4 var(--data); white-space: nowrap; }
+.tbl td.tk b { display: block; font: 700 0.95rem/1.3 var(--body); }
+.tbl td.mv { font: 500 0.85rem/1.4 var(--data); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.pill { display: inline-block; font: 700 0.68rem/1 var(--body); text-transform: uppercase; letter-spacing: 0.08em; padding: 4px 6px; border: 1px solid currentColor; white-space: nowrap; }
+
+footer { border-top: 1px solid var(--rule-strong); padding-top: 14px; display: grid; gap: 8px; font-size: 0.82rem; color: var(--ink-2); }
+footer ul { margin: 0; padding-left: 1.1em; display: grid; gap: 2px; }
+footer li { overflow-wrap: anywhere; }
+</style>
+
+<div class="page">
+
+  <header class="mast">
+    <h1>Markets &amp; Finance</h1>
+    <div class="meta">
+      <span>Saturday, 24 October 2026</span>
+      <span>All times Jakarta (WIB)</span>
+      <span>Morning brief covers US session of Fri 23 Oct</span>
+    </div>
+  </header>
+
+  <section class="strip" aria-labelledby="k-close">
+    <p class="kicker" id="k-close">US close · Friday 23 Oct</p>
+    <div class="tape">
+      <div class="q"><span class="n">Dow</span><span class="v">52,215.16</span><span class="c down">−652.82 · −1.23%</span></div>
+      <div class="q"><span class="n">S&amp;P 500</span><span class="v">7,623.68</span><span class="c down">−39.75 · −0.52%</span></div>
+      <div class="q"><span class="n">Nasdaq</span><span class="v">25,955.34</span><span class="c down">−53.52 · −0.21%</span></div>
+      <div class="q"><span class="n">10-yr yield</span><span class="v">≈5.00%</span><span class="c up">Up ≈5 bp · 2-yr ≈4.69%</span></div>
+      <div class="q"><span class="n">Dollar index</span><span class="v">n/a</span><span class="c up">Firmer; no index level found</span></div>
+      <div class="q"><span class="n">Gold</span><span class="v">≈$4,025</span><span class="c down">≈−0.9% · futures</span></div>
+      <div class="q"><span class="n">Oil (Brent)</span><span class="v">$116.72</span><span class="c up">+3.1% · WTI ≈$103</span></div>
+      <div class="q"><span class="n">Nasdaq-100 fut.</span><span class="v">n/a</span><span class="c flat">Reopen Mon 05:00 WIB</span></div>
+    </div>
+    <p class="note">For the week the S&amp;P 500 lost 0.5%, the Nasdaq 0.7% and the Dow gained 0.4%. ≈ marks figures from news reports, not official settlements; no dollar-index reading was found, and futures are closed for the weekend.</p>
+  </section>
+
+  <section class="lead" aria-labelledby="k-one">
+    <p class="kicker" id="k-one">The one thing to know <span class="asof">· updated Sat 24 Oct, 06:20 WIB</span></p>
+    <p class="big">Oil at a six-month high on Iran fears sank the Dow 653 points Friday, with the Fed and Big Tech earnings due next week.</p>
+    <ul>
+      <li>Brent settled at $116.72, up 3.1%, and WTI topped $100; the S&amp;P 500 fell 0.52% and the Nasdaq 0.21% as tech steadied after Thursday's rout.</li>
+      <li>The 10-year yield sits right at 5.00% and traders put the odds of a December Fed hike near 71%, with no change expected at next week's meeting.</li>
+      <li>Markets reopen Monday: Asia from about 07:00 WIB, and the Fed decides Thu 29 Oct, 01:00 WIB.</li>
+    </ul>
+  </section>
+
+  <!-- FEED:START — checks at 13:00, 20:30 and 01:00 WIB add items at the top of this list -->
+  <section class="feed" aria-labelledby="k-feed">
+    <div class="feed-head">
+      <h2 id="k-feed">Since this morning</h2>
+      <span class="stamp">Last updated Sat 24 Oct, 06:20 WIB · Next update Mon 26 Oct, 06:30 WIB (morning brief)</span>
+    </div>
+    <p class="how">Newest first. Items marked NEW came in with the latest check. Today's items stay here until the next morning brief, then move to the archive.</p>
+    <ol>
+      <p class="empty">No updates yet. Next update Monday 06:30 WIB.</p>
+    </ol>
+  </section>
+  <!-- FEED:END -->
+
+  <div class="grid">
+    <main class="stories" aria-label="Top stories">
+      <p class="kicker">Morning brief · top stories, ranked by impact</p>
+      <p class="written">Written Sat 24 Oct, 06:20 WIB. For anything newer, see "Since this morning" above.</p>
+
+      <article class="story">
+        <span class="tag hi">High impact</span>
+        <h3>Oil hits a six-month high and the Dow drops 653 points</h3>
+        <p>Brent settled at $116.72, up 3.1% and the highest settle since April, after reports that the US and Israel are drawing up plans for renewed strikes on Iran and an Iranian threat to hit US bases. WTI closed just above $103. The Dow fell 1.23% to 52,215.16; the S&amp;P 500 slipped 0.52% and the Nasdaq 0.21%.</p>
+        <p class="why"><b>Why it matters:</b> Oil above $100 keeps inflation and Fed-hike worries alive and hurts import-dependent Japan, Korea and Taiwan. Energy shares gain; airlines and consumer names are the losers.</p>
+        <div class="who"><span>Oil</span><span>Energy</span><span>Airlines</span><span>Dow</span><span>Asian importers</span></div>
+      </article>
+
+      <article class="story">
+        <span class="tag hi">High impact</span>
+        <h3>The 10-year sits at 5% with the Fed meeting next week</h3>
+        <p>The 10-year yield rose about 5 basis points to roughly 5.00%, the 2-year to about 4.69% and the 30-year to about 5.31%. Markets expect no change at the Fed's Wednesday 28 Oct meeting but price about a 71% chance of a quarter-point hike in December.</p>
+        <p class="why"><b>Why it matters:</b> Yields at 5% pressure growth and tech valuations, and a hawkish tone from the Fed on oil-driven inflation would hit the AI trade again. A firmer dollar also weighs on the yen and Asian currencies.</p>
+        <div class="who"><span>Treasuries</span><span>Banks</span><span>Growth / tech</span><span>USD/JPY</span></div>
+      </article>
+
+      <article class="story">
+        <span class="tag mid">Medium impact</span>
+        <h3>Tech steadies after the AI rout, but worries linger</h3>
+        <p>The Nasdaq nearly held flat after Thursday's 2.6% drop, helped by SpaceX gaining a rare double upgrade to Buy. Meta closed about 1% lower on top of Thursday's near-7% fall as investors fret about its first cash outflow in over a decade from AI spending. Bloom Energy fell on cash-flow concerns despite record third-quarter revenue.</p>
+        <p class="why"><b>Why it matters:</b> The AI-spending debate decides the direction for chip and memory stocks in Asia, so Monday's open there will show whether the Thursday damage has stopped.</p>
+        <div class="who"><span>META</span><span>SPCX</span><span>BE</span><span>NVDA</span><span>Nasdaq</span></div>
+      </article>
+
+      <article class="story">
+        <span class="tag mid">Medium impact</span>
+        <h3>Asia steadies Friday after the Thursday rout</h3>
+        <p>Japan's Nikkei 225 fell 0.3% to 62,693.16, Hong Kong's Hang Seng rose 0.7% to 23,093.37 and the Shanghai Composite gained 0.9%. The Kospi closed up about 0.3% after an early drop of roughly 2.4%. Taiwan was closed for Typhoon Champi, so Taiex has not yet reacted to Thursday's US chip sell-off.</p>
+        <p class="why"><b>Why it matters:</b> Taiwan reopens Monday with two days of US losses to price in, and Friday's Dow drop adds pressure on Asia's open.</p>
+        <div class="who"><span>Samsung</span><span>TSMC</span><span>Tokyo Electron</span><span>Kospi</span><span>Taiex</span></div>
+      </article>
+
+      <article class="story">
+        <span class="tag mid">Medium impact</span>
+        <h3>Big Tech earnings arrive alongside the Fed</h3>
+        <p>Alphabet, Microsoft, Amazon and Intel are due to report next week, with ServiceNow on 28 Oct and Apple on 2 Nov (CNBC puts Apple's revenue expectation near $113 billion). Exact report dates for the first four were not confirmed in coverage found.</p>
+        <p class="why"><b>Why it matters:</b> After Meta's reaction, investors will read capital-spending numbers closely; they set the tone for AI chip demand across Taiwan, Korea and Japan.</p>
+        <div class="who"><span>GOOGL</span><span>MSFT</span><span>AMZN</span><span>INTC</span><span>NOW</span><span>AAPL</span></div>
+      </article>
+    </main>
+
+    <aside class="rail">
+      <section aria-labelledby="k-asia">
+        <h2 id="k-asia">Asia today</h2>
+        <p class="note">Friday's close (approximate; reports differ slightly). Asian markets are shut for the weekend and reopen Monday.</p>
+        <div class="country">
+          <div class="row"><strong>Korea · Kospi</strong><span class="up">≈+0.3%</span></div>
+          <p>Near 5,550, though reports conflict; it recovered from an early drop of about 2.4%.</p>
+        </div>
+        <div class="country">
+          <div class="row"><strong>Japan · Nikkei 225</strong><span class="down">−0.3%</span></div>
+          <p>62,693.16, well off its early lows.</p>
+        </div>
+        <div class="country">
+          <div class="row"><strong>Taiwan · Taiex</strong><span class="flat">Closed</span></div>
+          <p>Market shut for Typhoon Champi, so no close.</p>
+        </div>
+        <div class="country">
+          <div class="row"><strong>Hong Kong · Hang Seng</strong><span class="up">+0.7%</span></div>
+          <p>23,093.37, rebounding after two down days.</p>
+        </div>
+        <div class="country">
+          <div class="row"><strong>China · Shanghai Comp.</strong><span class="up">+0.9%</span></div>
+          <p>3,690.48. No CSI 300 close was reported.</p>
+        </div>
+      </section>
+
+      <section aria-labelledby="k-cal">
+        <h2 id="k-cal">Coming up</h2>
+        <p class="note">All times Jakarta (WIB).</p>
+        <ul class="cal">
+          <li><time>Mon 26 Oct<br>≈07:00</time><div><b>Asia reopens</b><span>First reaction to Friday's oil jump and the Dow drop; Taiwan returns after the typhoon.</span></div></li>
+          <li><time>Mon 26 – Fri 30 Oct</time><div><b>Big Tech earnings</b><span>Alphabet, Microsoft, Amazon and Intel report this week; exact days not confirmed.</span></div></li>
+          <li><time>Thu 29 Oct<br>01:00</time><div><b>Fed rate decision</b><span>Hold expected on 28 Oct; about 71% priced for a hike in December.</span></div></li>
+          <li><time>Mon 2 Nov</time><div><b>Apple earnings</b><span>Revenue expected near $113 billion.</span></div></li>
+        </ul>
+      </section>
+    </aside>
+  </div>
+
+  <footer>
+    <span>Past days: <a href="https://finance-news.aditihs1404.workers.dev/briefs/" target="_blank" rel="noopener">archive of earlier editions</a>.</span>
+    <span>Sources: CNBC and Yahoo Finance. These summaries are for your own reading, not buy or sell advice. Figures marked ≈ are approximate.</span>
+    <ul>
+      <li><a href="https://finance.yahoo.com/markets/live/stock-market-today-friday-october-23-dow-sp-500-nasdaq-tesla-meta-093000521.html" target="_blank" rel="noopener">Yahoo Finance: Dow sinks 600 points, oil prices rise</a></li>
+      <li><a href="https://www.cnbc.com/2026/10/22/stock-market-today-live-update.html" target="_blank" rel="noopener">CNBC: Stock market live updates, Oct 23</a></li>
+      <li><a href="https://www.cnbc.com/2026/10/23/bonds-yields-us-treasurys.html" target="_blank" rel="noopener">CNBC: 10-year Treasury yield drops back to 5%</a></li>
+      <li><a href="https://finance.yahoo.com/markets/stocks/articles/stock-market-today-oct-23-134445147.html" target="_blank" rel="noopener">Yahoo Finance: Stock Market Today, Oct 23</a></li>
+      <li><a href="https://finance.yahoo.com/markets/world-indices/articles/asian-stocks-head-weekend-low-024730943.html" target="_blank" rel="noopener">Yahoo Finance: Asian stocks head into the weekend</a></li>
+      <li><a href="https://www.cnbc.com/2026/10/23/apple-nvidia-market-cap-earnings.html" target="_blank" rel="noopener">CNBC: Apple nears Nvidia market cap ahead of earnings</a></li>
+    </ul>
+  </footer>
+</div>
+
+</body>
+</html>
