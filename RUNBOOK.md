@@ -36,6 +36,7 @@ whole page for today's date. The page title stays **Markets & Finance**.
 5. Top stories: at most five, ranked High / Medium impact, under the kicker
    "Morning brief · top stories, ranked by impact" and the line
    `<p class="written">Written <Day DD Mon>, HH:MM WIB. For anything newer, see "Since this morning" above.</p>`.
+   Each story opens with `<p class="meta"><span class="tag hi|mid">High|Medium impact</span><span class="when">Written <Ddd DD Mon>, HH:MM WIB · about <the day or period the story covers, e.g. "Fri 23 Oct" or "this week, 26–30 Oct"></span></p>`.
    Each story has what happened,
    "Why it matters", and the affected tickers or markets.
 6. Asia today rail: Korea, Japan, Taiwan, Hong Kong, China — previous close and the outlook.
