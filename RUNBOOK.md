@@ -22,7 +22,7 @@ Reader: an individual investor in Jakarta who wants to read one page and skip ev
   and change only the content. Publish back to the same `url`.
 - Not investment advice; keep the footer line that says so.
 
-## Morning brief (06:30 WIB, Monday to Saturday)
+## Morning brief (08:00 WIB, Monday to Saturday)
 
 Before rewriting, archive yesterday's final page (see "Website" below). Then rewrite the
 whole page for today's date. The page title stays **Markets & Finance**.
@@ -32,7 +32,7 @@ whole page for today's date. The page title stays **Markets & Finance**.
 3. The one thing to know: one sentence plus up to three bullets. Its kicker carries
    `<span class="asof">· updated <Ddd DD Mon>, HH:MM WIB</span>` with the brief's time.
 4. Since this morning feed: reset to empty with
-   `<p class="empty">No updates yet. First check at 13:00 WIB.</p>` (Saturday: "Next update Monday 06:30 WIB.")
+   `<p class="empty">No updates yet. First check at 13:00 WIB.</p>` (Saturday: "Next update Monday 08:00 WIB.")
 5. Top stories: at most five, ranked High / Medium impact, under the kicker
    "Morning brief · top stories, ranked by impact" and the line
    `<p class="written">Written <Day DD Mon>, HH:MM WIB. For anything newer, see "Since this morning" above.</p>`.

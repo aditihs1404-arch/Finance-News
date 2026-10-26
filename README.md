@@ -3,7 +3,7 @@
 **Website:** https://finance-news.aditihs1404.workers.dev  
 **Claude page:** https://claude.ai/artifact/NuPN4PCUxinTeARjfaTZjk
 
-A five-minute daily market brief, ready by 6:30am Jakarta time (WIB).
+A five-minute daily market brief, ready by 8:00am Jakarta time (WIB).
 
 - **Covers:** the previous US session, plus what it means for Japan, Korea, Taiwan and China that morning.
 - **Sources:** CNBC and Yahoo Finance only.
