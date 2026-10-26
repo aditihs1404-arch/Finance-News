@@ -53,12 +53,14 @@ Then update the website (see "Website" below), including `public/briefs/YYYY-MM-
    (Ddd = Mon, Tue…, the Jakarta day). Remove `class="new"` from all older items first, so only
    the latest check's items show NEW. Remove the empty-state paragraph if it is there.
 3. Update the stamp: `Last updated <Day DD Mon>, HH:MM WIB · Next check HH:MM WIB`.
-4. Rewrite "The one thing to know" (sentence and bullets) when a story is **big**, or when the
-   current headline has become wrong or misleading because the day's main story changed
-   (e.g. it says chips are selling off and they have rallied all session). Don't rewrite it
-   just to mention smaller new news; that belongs in the feed. Whenever you rewrite it,
-   set its `asof` label to the check's time.
-5. If nothing passes the filter, change only the stamp.
+4. Refresh "The one thing to know" at every check:
+   - **Bullets (always):** rewrite the three bullets so they describe the market as it is now.
+     Keep a bullet that is still true (update its figures if newer ones exist); replace one that is
+     out of date. The first bullet starts "Today:" and sums up the latest moves.
+   - **Big sentence (only when needed):** rewrite it only when there is a **big** story or it has
+     become wrong or misleading. Otherwise keep it, trimming any clause that is no longer true.
+   - Set its `asof` label to the check's time.
+5. If nothing passes the filter, add no feed items, but still refresh the bullets and stamp.
 
 **Big story** means one of: a Fed or other central-bank surprise; S&P 500, Nasdaq,
 Nikkei, Kospi or Taiex moving more than 2%; a mega-cap (NVDA, AAPL, MSFT, GOOGL, AMZN,
