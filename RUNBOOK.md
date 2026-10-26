@@ -61,6 +61,9 @@ Then update the website (see "Website" below), including `public/briefs/YYYY-MM-
    - **Big sentence (only when needed):** rewrite it only when there is a **big** story or it has
      become wrong or misleading. Otherwise keep it, trimming any clause that is no longer true.
    - Set its `asof` label to the check's time.
+4b. **Asia today** rail: at the 13:00 check, update each market with its latest move and level
+   (midday); at the 20:30 check, update it with that day's closes. Set its note to
+   "<Ddd DD Mon> closes · updated <Ddd> HH:MM WIB" (or "midday"). The 01:00 check leaves it alone.
 5. If nothing passes the filter, add no feed items, but still refresh the bullets and stamp.
 
 **Big story** means one of: a Fed or other central-bank surprise; S&P 500, Nasdaq,
