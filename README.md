@@ -1,4 +1,4 @@
-# The 6:30 Brief
+# Markets & Finance
 
 **Website:** https://finance-news.aditihs1404.workers.dev  
 **Claude page:** https://claude.ai/artifact/NuPN4PCUxinTeARjfaTZjk
