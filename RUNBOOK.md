@@ -39,7 +39,6 @@ whole page for today's date. The page title stays **Markets & Finance**.
    Each story opens with `<p class="meta"><span class="tag hi|mid">High|Medium impact</span><span class="when"><date of the news, e.g. "Fri 23 Oct", or a range like "26–30 Oct"></span></p>`.
    Each story has what happened,
    "Why it matters", and the affected tickers or markets.
-6. Asia today rail: Korea, Japan, Taiwan, Hong Kong, China — previous close and the outlook.
 7. Coming up: market-moving events only, in WIB.
 8. Earnings scorecard: only companies CNBC / Yahoo Finance covered; skip the section on days with none.
 9. Footer: source links actually used.
@@ -61,9 +60,6 @@ Then update the website (see "Website" below), including `public/briefs/YYYY-MM-
    - **Big sentence (only when needed):** rewrite it only when there is a **big** story or it has
      become wrong or misleading. Otherwise keep it, trimming any clause that is no longer true.
    - Set its `asof` label to the check's time.
-4b. **Asia today** rail: at the 13:00 check, update each market with its latest move and level
-   (midday); at the 20:30 check, update it with that day's closes. Set its note to
-   "<Ddd DD Mon> closes · updated <Ddd> HH:MM WIB" (or "midday"). The 01:00 check leaves it alone.
 5. If nothing passes the filter, add no feed items, but still refresh the bullets and stamp.
 
 **Big story** means one of: a Fed or other central-bank surprise; S&P 500, Nasdaq,
