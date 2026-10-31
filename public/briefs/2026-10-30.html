@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+</head>
+<body>
+<title>Markets &amp; Finance</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,600;6..72,700&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a single-edition newspaper page. Masthead, a market strip, the lead line,
+   then stories in a main column with a narrow Asia + calendar rail beside them. */
+:root {
+  --paper: #fbfbf8;
+  --ink: #16181d;
+  --ink-2: #4a4f59;
+  --rule: #d9d9d2;
+  --rule-strong: #16181d;
+  --accent: #1f3a5f;      /* deep ink blue, used for kicker labels and links */
+  --tint: #eef1f5;
+  --up: #0f7a3d;
+  --down: #b42318;
+  --hi: #b42318;
+  --mid: #a15c07;
+  --lo: #6b7280;
+  --display: "Newsreader", "Georgia", "Times New Roman", serif;
+  --body: "Public Sans", "Helvetica Neue", Arial, sans-serif;
+  --data: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #121417; --ink: #ecebe6; --ink-2: #a8acb4; --rule: #2c3036; --rule-strong: #ecebe6;
+    --accent: #8fb3e0; --tint: #1b2027; --up: #4ccb7f; --down: #f2766b; --hi: #f2766b; --mid: #e3a33b; --lo: #9aa0aa;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #121417; --ink: #ecebe6; --ink-2: #a8acb4; --rule: #2c3036; --rule-strong: #ecebe6;
+  --accent: #8fb3e0; --tint: #1b2027; --up: #4ccb7f; --down: #f2766b; --hi: #f2766b; --mid: #e3a33b; --lo: #9aa0aa;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--paper); color: var(--ink);
+  font: 400 16px/1.6 var(--body);
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 24px 56px;
+}
+.page { max-width: 1080px; margin: 0 auto; display: flex; flex-direction: column; gap: 28px; }
+a { color: var(--accent); text-underline-offset: 2px; }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* Masthead */
+.mast { border-bottom: 3px double var(--rule-strong); padding-bottom: 14px; display: grid; gap: 6px; text-align: center; }
+.mast h1 { font: 700 clamp(2.4rem, 7vw, 4rem)/1 var(--display); letter-spacing: -0.02em; margin: 0; }
+.mast .meta { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 18px; font: 500 0.78rem/1.4 var(--body); text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-2); }
+
+/* Kicker labels */
+.kicker { font: 700 0.72rem/1.2 var(--body); text-transform: uppercase; letter-spacing: 0.12em; color: var(--accent); margin: 0 0 10px; }
+
+/* Market strip */
+.strip { display: grid; gap: 10px; }
+.tape { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); border-top: 1px solid var(--rule); border-left: 1px solid var(--rule); }
+.q { padding: 10px 12px; border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule); display: grid; gap: 2px; min-width: 0; }
+.q .n { font: 600 0.74rem/1.2 var(--body); text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-2); }
+.q .v { font: 500 1rem/1.3 var(--data); font-variant-numeric: tabular-nums; }
+.q .c { font: 500 0.82rem/1.3 var(--data); font-variant-numeric: tabular-nums; }
+.up { color: var(--up); } .down { color: var(--down); } .flat { color: var(--ink-2); }
+.note { font-size: 0.8rem; color: var(--ink-2); margin: 0; }
+
+/* Lead */
+.lead { border-top: 1px solid var(--rule-strong); border-bottom: 1px solid var(--rule); padding-block: 18px; }
+.lead p.big { font: 600 clamp(1.4rem, 3.4vw, 2rem)/1.25 var(--display); margin: 0; text-wrap: balance; max-width: 30ch; }
+.lead ul { margin: 14px 0 0; padding-left: 1.1em; display: grid; gap: 4px; max-width: 70ch; }
+
+/* Main grid */
+.grid { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 36px; align-items: start; }
+@media (max-width: 860px) { .grid { grid-template-columns: minmax(0, 1fr); } }
+
+.stories { display: flex; flex-direction: column; }
+.story { padding-block: 18px; border-top: 1px solid var(--rule); display: grid; gap: 8px; min-width: 0; }
+.story:first-of-type { border-top: 0; padding-top: 0; }
+.story h3 { font: 700 clamp(1.25rem, 2.6vw, 1.5rem)/1.2 var(--display); margin: 0; text-wrap: balance; }
+.story p { margin: 0; max-width: 68ch; }
+.story .why { background: var(--tint); padding: 10px 12px; font-size: 0.95rem; }
+.story .why b { font-weight: 700; }
+.who { display: flex; flex-wrap: wrap; gap: 6px; font: 500 0.78rem/1 var(--data); }
+.who span { border: 1px solid var(--rule); padding: 4px 6px; }
+.tag { display: inline-flex; align-items: center; gap: 6px; font: 700 0.7rem/1 var(--body); text-transform: uppercase; letter-spacing: 0.1em; }
+.tag::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
+.tag.hi { color: var(--hi); } .tag.mid { color: var(--mid); } .tag.lo { color: var(--lo); }
+
+/* Rail */
+.rail { display: flex; flex-direction: column; gap: 28px; border-left: 1px solid var(--rule); padding-left: 24px; min-width: 0; }
+@media (max-width: 860px) { .rail { border-left: 0; padding-left: 0; border-top: 1px solid var(--rule-strong); padding-top: 20px; } }
+.rail h2 { font: 700 1.25rem/1.2 var(--display); margin: 0 0 4px; }
+.country { padding-block: 10px; border-top: 1px solid var(--rule); display: grid; gap: 4px; }
+.country:first-of-type { border-top: 0; }
+.country .row { display: flex; justify-content: space-between; gap: 8px; align-items: baseline; }
+.country .row strong { font: 700 0.95rem/1.3 var(--body); }
+.country .row span { font: 500 0.82rem/1.3 var(--data); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.country p { margin: 0; font-size: 0.9rem; color: var(--ink-2); }
+
+.cal { list-style: none; margin: 0; padding: 0; display: grid; }
+.cal li { display: grid; grid-template-columns: 76px minmax(0, 1fr); gap: 10px; padding-block: 10px; border-top: 1px solid var(--rule); }
+.cal li:first-child { border-top: 0; }
+.cal time { font: 500 0.78rem/1.35 var(--data); color: var(--accent); }
+.cal b { display: block; font-size: 0.95rem; }
+.cal span { font-size: 0.88rem; color: var(--ink-2); }
+
+/* Since this morning feed */
+.feed { display: grid; gap: 10px; border: 1px solid var(--rule-strong); padding: 14px 16px; }
+.feed-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 4px 16px; }
+.feed-head h2 { font: 700 1.25rem/1.2 var(--display); margin: 0; }
+.stamp { font: 500 0.78rem/1.3 var(--data); color: var(--ink-2); }
+.feed ol { list-style: none; margin: 0; padding: 0; display: grid; }
+.feed li { display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 12px; padding-block: 10px; border-top: 1px solid var(--rule); }
+.feed li:first-child { border-top: 0; padding-top: 2px; }
+.feed time { font: 500 0.8rem/1.5 var(--data); color: var(--accent); }
+.feed b { display: block; font: 700 1rem/1.35 var(--body); }
+.feed p { margin: 2px 0 0; font-size: 0.93rem; color: var(--ink-2); max-width: 70ch; }
+.feed .empty { color: var(--ink-2); font-size: 0.92rem; margin: 0; }
+.feed .how { margin: 0; font-size: 0.82rem; color: var(--ink-2); }
+.feed li.new time::after { content: "NEW"; display: block; width: max-content; margin-top: 6px; padding: 3px 5px; font: 700 0.62rem/1 var(--body); letter-spacing: 0.1em; color: var(--paper); background: var(--accent); }
+.kicker .asof { font-weight: 500; letter-spacing: 0.06em; color: var(--ink-2); }
+.story .meta { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; margin: 0; }
+.story .when { font: 500 0.75rem/1.3 var(--data); color: var(--ink-2); }
+.stories .written { margin: -4px 0 6px; font-size: 0.82rem; color: var(--ink-2); }
+
+/* Earnings scorecard */
+.earn { display: grid; gap: 10px; }
+.earn h2 { font: 700 1.25rem/1.2 var(--display); margin: 0; }
+.tbl { overflow-x: auto; border-top: 1px solid var(--rule-strong); }
+.tbl table { width: 100%; min-width: 640px; border-collapse: collapse; font-size: 0.92rem; }
+.tbl th { text-align: left; font: 700 0.7rem/1.2 var(--body); text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-2); padding: 10px 10px 8px 0; border-bottom: 1px solid var(--rule); }
+.tbl td { padding: 10px 10px 10px 0; border-bottom: 1px solid var(--rule); vertical-align: top; }
+.tbl td.tk { font: 500 0.82rem/1.4 var(--data); white-space: nowrap; }
+.tbl td.tk b { display: block; font: 700 0.95rem/1.3 var(--body); }
+.tbl td.mv { font: 500 0.85rem/1.4 var(--data); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.pill { display: inline-block; font: 700 0.68rem/1 var(--body); text-transform: uppercase; letter-spacing: 0.08em; padding: 4px 6px; border: 1px solid currentColor; white-space: nowrap; }
+
+footer { border-top: 1px solid var(--rule-strong); padding-top: 14px; display: grid; gap: 8px; font-size: 0.82rem; color: var(--ink-2); }
+footer ul { margin: 0; padding-left: 1.1em; display: grid; gap: 2px; }
+footer li { overflow-wrap: anywhere; }
+</style>
+
+<div class="page">
+
+  <header class="mast">
+    <h1>Markets &amp; Finance</h1>
+    <div class="meta">
+      <span>Friday, 30 October 2026</span>
+      <span>All times Jakarta (WIB)</span>
+      <span>Morning brief covers US session of Thu 29 Oct</span>
+    </div>
+  </header>
+
+  <section class="strip" aria-labelledby="k-close">
+    <p class="kicker" id="k-close">US close · Thursday 29 Oct</p>
+    <div class="tape">
+      <div class="q"><span class="n">Dow</span><span class="v">52,342.56</span><span class="c down">−132.54 · −0.25%</span></div>
+      <div class="q"><span class="n">S&amp;P 500</span><span class="v">7,720.39</span><span class="c down">−23.59 · −0.30%</span></div>
+      <div class="q"><span class="n">Nasdaq</span><span class="v">26,184.72</span><span class="c down">−365.13 · −1.37%</span></div>
+      <div class="q"><span class="n">10-yr yield</span><span class="v">≈4.96%</span><span class="c down">≈−9 bp from Wed's 5.05% · intraday</span></div>
+      <div class="q"><span class="n">Dollar index</span><span class="v">≈101.9</span><span class="c flat">Slightly lower · intraday</span></div>
+      <div class="q"><span class="n">Gold</span><span class="v">≈$4,040</span><span class="c flat">≈−0.3% · spot, intraday</span></div>
+      <div class="q"><span class="n">Oil (Brent)</span><span class="v">≈$115</span><span class="c flat">Little changed · ≈$115.40 mid-session</span></div>
+      <div class="q"><span class="n">Nasdaq-100 fut.</span><span class="v">≈−1.7%</span><span class="c down">After Amazon and Intel · S&amp;P fut. ≈−0.7%</span></div>
+    </div>
+    <p class="note">Thursday is the latest completed US session. Index levels are closing figures as reported by Reuters via Yahoo Finance. ≈ marks figures from news reports, not official settlements: yield, dollar, gold and oil are intraday readings, and the futures moves are from Thursday evening.</p>
+  </section>
+
+  <section class="lead" aria-labelledby="k-one">
+    <p class="kicker" id="k-one">The one thing to know <span class="asof">· updated Sat 31 Oct, 00:47 WIB</span></p>
+    <p class="big">Wall Street is deep in a tech rout: the Nasdaq is down about 2.6% in the afternoon as Amazon and Intel (down about 29%) deepen the AI-spending scare, after the Nikkei closed down 2.1% and the Kospi 3.5%.</p>
+    <ul>
+      <li>Today: Around 13:45 New York time (00:45 WIB) the Nasdaq was down about 2.6%, the S&amp;P 500 about 1.5% to 1.9% and the Dow about 0.7% to 1% (Dow near 51,827). These are intraday figures, not closes. Asia closed lower earlier: Nikkei −2.12% and Kospi −3.48%.</li>
+      <li>Intel is down about 29% after weak guidance and Amazon is also sharply lower, extending Thursday's Alphabet slide and the worry about heavy AI spending.</li>
+      <li>Money is moving into bonds and the dollar is easing with yields. Brent is about $113 and WTI about $104 on signs the US may resume strikes on Iran.</li>
+    </ul>
+  </section>
+
+  <!-- FEED:START — checks at 12:50, 20:50 and 00:50 WIB add items at the top of this list -->
+  <section class="feed" aria-labelledby="k-feed">
+    <div class="feed-head">
+      <h2 id="k-feed">Since this morning</h2>
+      <span class="stamp">Last updated Sat 31 Oct, 00:47 WIB · Next update 08:00 WIB (morning brief)</span>
+    </div>
+    <p class="how">Newest first. Items marked NEW came in with the latest check. Today's items stay here until the next morning brief, then move to the archive.</p>
+    <ol>
+<li class="new"><time>Sat<br>00:47</time><div><span class="tag hi">High impact</span><b>Nasdaq down about 2.6% in the afternoon as the tech sell-off deepens</b><p>At about 13:45 New York time the Nasdaq was down roughly 2.6%, the S&amp;P 500 1.5% to 1.9% and the Dow 0.7% to 1%, with Intel off about 29% after weak guidance. The sell-off is widening from Alphabet to Amazon and Intel as investors question heavy AI spending.</p></div></li>
+<li class="new"><time>Sat<br>00:47</time><div><span class="tag mid">Medium impact</span><b>Treasuries rally and dollar slips; oil rises on Iran strike worries</b><p>The dollar tracked Treasury yields lower as investors sought safety, while Brent rose to about $113 and WTI to about $104 on signs the US may resume military strikes against Iran. Lower yields help growth stocks, but higher oil keeps inflation worries alive and pressures Japan, Korea and Taiwan.</p></div></li>
+<li><time>Fri<br>20:50</time><div><span class="tag hi">High impact</span><b>Nasdaq drops about 2.5% at the open as Amazon and Intel fuel tech rout</b><p>Wall Street opened lower with the Nasdaq down about 2.5%, the S&amp;P 500 about 1.3% and the Dow about 0.3%; Amazon fell roughly 6.5% to 7% and Intel 25% or more. Treasury yields fell as investors moved into bonds, and the 10-year was near 4.92%.</p></div></li>
+<li><time>Fri<br>20:50</time><div><span class="tag hi">High impact</span><b>Nikkei closes down 2.1%, Kospi down 3.5% as chip stocks sink</b><p>The Nikkei 225 closed at 63,290.11 and the Kospi at 5,730.74, a smaller fall than the morning lows, with Samsung and SK hynix taking much of the hit. The Taiex was down about 2.8% at 45,069.51 in mid-morning trading and no close was found.</p></div></li>
+<li><time>Fri<br>20:50</time><div><span class="tag mid">Medium impact</span><b>Binance reports record $6.3 billion hack; bitcoin falls about 4%</b><p>Binance says about $6.3 billion was impacted, with around $3 billion frozen, and analysts link the theft to North Korea (not confirmed by Binance). Bitcoin fell to about $77,500, adding to the risk-off mood alongside the tech sell-off.</p></div></li>
+<li><time>Fri<br>20:50</time><div><span class="tag mid">Medium impact</span><b>Oil climbs on Strait of Hormuz tanker attack</b><p>Brent traded around $113 to $115 and WTI near $104 in early Friday trading after a reported tanker attack in the Strait of Hormuz. Higher oil adds to inflation worries and pressures import-dependent Japan, Korea and Taiwan.</p></div></li>
+<li><time>Fri<br>12:50</time><div><span class="tag hi">High impact</span><b>Kospi down about 4.8%, Nikkei and Taiex about 2.8% as AI-spending scare hits Asian chips</b><p>Mid-session on Friday the Kospi was at 5,654.61 and the Taiex at 45,069.51, with Samsung and SK hynix leading the drop after Alphabet's 12.6% slide. Nasdaq-100 futures are down about 2.1% and S&amp;P 500 futures about 1%, so the US open at 20:30 WIB starts under pressure.</p></div></li>
+    </ol>
+  </section>
+  <!-- FEED:END -->
+
+  <div class="grid">
+    <main class="stories" aria-label="Top stories">
+      <p class="kicker">Morning brief · top stories, ranked by impact</p>
+      <p class="written">Written Fri 30 Oct, 07:55 WIB. For anything newer, see "Since this morning" above.</p>
+
+      <article class="story">
+        <p class="meta"><span class="tag hi">High impact</span><span class="when">Thu 29 Oct</span></p>
+        <h3>Alphabet falls 12.6%, its worst day since the IPO, and drags the Nasdaq lower</h3>
+        <p>Alphabet shed roughly $500 billion of market value after a revenue miss and heavier AI-related cash burn, and communication services led the market down. The Nasdaq lost 1.37%, the S&amp;P 500 0.30% and the Dow 0.25%. The equal-weight S&amp;P 500 rose more than 1%, so money rotated away from the biggest AI names rather than leaving stocks.</p>
+        <p class="why"><b>Why it matters:</b> Investors are punishing AI spending that does not show up as cash flow. After Wednesday's three-day rally, the biggest index weights are now the weak spot, and Asian chip and tech stocks followed lower this morning.</p>
+        <div class="who"><span>GOOGL</span><span>Nasdaq-100</span><span>QQQ</span><span>NVDA</span><span>AVGO</span></div>
+      </article>
+
+      <article class="story">
+        <p class="meta"><span class="tag hi">High impact</span><span class="when">Thu 29 Oct</span></p>
+        <h3>Amazon and Intel slide after earnings; Nasdaq-100 futures fall about 1.7%</h3>
+        <p>Amazon's AWS revenue rose 39% to $45.98B, above the $45.29B expected, and management said it expects AWS growth over 40% in 2027 and 2028. But EPS of $1.89 and revenue of $201.94B missed estimates, free cash flow was negative again and the $220B 2026 capex plan was unchanged. Amazon closed down 4.25% and after-hours reports ranged from about −6% to −9%. Intel plunged about 21% after hours on weak current-quarter guidance, which it tied to a PC slowdown.</p>
+        <p class="why"><b>Why it matters:</b> Big Tech is being judged on cash flow, not just cloud growth, and Intel's guidance adds to doubts for chip names. Today's US open at 20:30 WIB is the test, and Korea and Taiwan chip supply chains are already reacting.</p>
+        <div class="who"><span>AMZN</span><span>INTC</span><span>Nasdaq-100</span><span>SK hynix</span><span>Tokyo Electron</span></div>
+      </article>
+
+      <article class="story">
+        <p class="meta"><span class="tag mid">Medium impact</span><span class="when">Thu 29 Oct</span></p>
+        <h3>US GDP beats at 3.4%; core PCE in line; 10-year yield slips back below 5%</h3>
+        <p>The first estimate of third-quarter GDP showed 3.4% annualized growth against 3.1% expected, and core PCE rose 0.3% on the month, as forecast and faster than August's 0.2%. The 10-year yield traded near 4.96%, down from Wednesday's 5.05% close, as tech weakness pulled money into bonds.</p>
+        <p class="why"><b>Why it matters:</b> Strong growth with sticky inflation keeps the Fed's hike debate alive, and a 10-year yield near 5% weighs on growth stocks and on the yen and Asian currencies.</p>
+        <div class="who"><span>Treasuries</span><span>USD/JPY</span><span>Banks</span><span>Growth / tech</span></div>
+      </article>
+
+      <article class="story">
+        <p class="meta"><span class="tag mid">Medium impact</span><span class="when">Thu 29 Oct</span></p>
+        <h3>Caterpillar falls more than 9% despite beating estimates, weighing on the Dow</h3>
+        <p>Caterpillar beat expectations but its construction industries sales were slightly below forecasts, and the stock was the biggest drag on the Dow, which closed down 0.25%.</p>
+        <p class="why"><b>Why it matters:</b> It shows how little room there is for any shortfall in cyclical earnings with stocks near highs and yields near 5%. Machinery makers are a read on global industrial demand, including China.</p>
+        <div class="who"><span>CAT</span><span>DIA</span><span>Industrials</span></div>
+      </article>
+
+      <article class="story">
+        <p class="meta"><span class="tag mid">Medium impact</span><span class="when">Thu 29 Oct</span></p>
+        <h3>Oil steady near $115 a barrel; gold slips</h3>
+        <p>Brent traded around $115.40, little changed on the day, while spot gold fell about 0.3% to near $4,041 an ounce. The dollar index eased to about 101.9.</p>
+        <p class="why"><b>Why it matters:</b> Oil above $100 feeds inflation and rate-hike worries and squeezes import-dependent Japan, Korea and Taiwan, while energy stocks benefit.</p>
+        <div class="who"><span>Oil</span><span>Energy</span><span>Gold</span><span>Asian importers</span></div>
+      </article>
+    </main>
+
+    <aside class="rail">
+
+      <section aria-labelledby="k-cal">
+        <h2 id="k-cal">Coming up</h2>
+        <p class="note">All times Jakarta (WIB).</p>
+        <ul class="cal">
+          <li><time>Fri 30 Oct<br>today</time><div><b>Asia chip stocks after the Amazon and Intel results</b><span>Watch whether Kospi and Nikkei losses deepen or recover through the session.</span></div></li>
+          <li><time>Fri 30 Oct<br>now</time><div><b>Wall Street session under way</b><span>Watch whether the Nasdaq holds its early losses into the close at 03:00 WIB.</span></div></li>
+          <li><time>Tue 3 Nov</time><div><b>US midterm elections</b><span>Traders in Asia are already flagging them as a risk.</span></div></li>
+        </ul>
+      </section>
+    </aside>
+  </div>
+
+  <section class="earn" aria-labelledby="k-earn">
+    <h2 id="k-earn">Earnings scorecard</h2>
+    <p class="note">Results reported Thursday 29 Oct, as covered by CNBC and Yahoo Finance. "AH" means after-hours trading; moves are approximate and shifted during the session.</p>
+    <div class="tbl">
+      <table>
+        <thead><tr><th>Company</th><th>Result</th><th>Stock</th><th>The one-line reason</th></tr></thead>
+        <tbody>
+          <tr><td class="tk"><b>Amazon</b>AMZN</td><td><span class="pill down">Miss</span></td><td class="mv down">−4.25% close · ≈−6% to −9% AH</td><td>EPS $1.89 vs $1.96 and revenue $201.94B vs $202.31B; AWS beat at $45.98B (+39%), but free cash flow was negative again.</td></tr>
+          <tr><td class="tk"><b>Intel</b>INTC</td><td><span class="pill down">Weak guidance</span></td><td class="mv down">≈−21% AH</td><td>Current-quarter outlook came in below expectations, blamed on a PC slowdown.</td></tr>
+          <tr><td class="tk"><b>Caterpillar</b>CAT</td><td><span class="pill flat">Beat · sales detail soft</span></td><td class="mv down">≈−9% close</td><td>Beat estimates, but construction industries sales were slightly below expectations.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <footer>
+    <span>Past days: <a href="https://finance-news.aditihs1404.workers.dev/briefs/" target="_blank" rel="noopener">archive of earlier editions</a>.</span>
+    <span>Sources: CNBC and Yahoo Finance. These summaries are for your own reading, not buy or sell advice. Figures marked ≈ are approximate.</span>
+    <ul>
+      <li><a href="https://finance.yahoo.com/markets/live/stock-market-today-thursday-october-29-dow-sp-500-nasdaq-alphabet-microsoft-earnings-130305714.html" target="_blank" rel="noopener">Yahoo Finance: Dow, S&amp;P 500, Nasdaq slip as Alphabet stock sinks 12% and AI jitters return</a></li>
+      <li><a href="https://www.cnbc.com/2026/10/29/stock-market-today-live-updates.html" target="_blank" rel="noopener">CNBC: Nasdaq-100 futures fall as Amazon and Intel swoon after earnings</a></li>
+      <li><a href="https://www.cnbc.com/2026/10/29/amazon-amzn-q3-earnings-report-2026.html" target="_blank" rel="noopener">CNBC: Amazon Q3 earnings report 2026</a></li>
+      <li><a href="https://www.cnbc.com/2026/10/29/aws-q3-earnings-report-2026.html" target="_blank" rel="noopener">CNBC: AWS posts 39% revenue growth as cloud rivals also accelerate</a></li>
+      <li><a href="https://www.cnbc.com/2026/10/29/treasury-yields-federal-reserve-rates.html" target="_blank" rel="noopener">CNBC: 10-year Treasury yield hovers below 5% after strong GDP report</a></li>
+      <li><a href="https://www.cnbc.com/2026/10/29/stocks-making-the-biggest-moves-midday-adt-googl-cat-lly-cmg.html" target="_blank" rel="noopener">CNBC: Stocks making the biggest moves midday</a></li>
+      <li><a href="https://finance.yahoo.com/energy/articles/current-price-oil-october-29-130000851.html" target="_blank" rel="noopener">Yahoo Finance: Current price of oil as of October 29, 2026</a></li>
+    </ul>
+  </footer>
+</div>
+
+</body>
+</html>
