@@ -9,8 +9,8 @@ Reader: an individual investor in Jakarta who wants to read one page and skip ev
   `allowed_domains: ["cnbc.com", "finance.yahoo.com"]`. WebFetch cannot reach these
   sites from the cloud container, and MarketWatch/WSJ are blocked, so don't try them.
 - **Times are Jakarta time (WIB, UTC+7)** everywhere on the page.
-  US Eastern is UTC−4 until 1 Nov 2026, then UTC−5 (US open 20:30 WIB, then 21:30 WIB).
-- **Check market hours.** US stocks trade only about 20:30–03:00 WIB (21:30–04:00 after 1 Nov),
+  US Eastern is UTC−4 until 1 Nov 2026, then UTC−5 (US open 21:50 WIB, then 21:30 WIB).
+- **Check market hours.** US stocks trade only about 21:30–04:00 WIB (US winter time, from 1 Nov 2026),
   Monday–Friday US time. Outside those hours there is no US intraday move: only futures or the
   previous close. Check the date on every figure, and don't repeat numbers already on the page.
 - **Filter hard.** Leave out anything that doesn't affect US markets, rates, big sectors,
@@ -45,7 +45,7 @@ whole page for today's date. The page title stays **Markets & Finance**.
 
 Then update the website (see "Website" below), including `public/briefs/YYYY-MM-DD.html`.
 
-## News checks (13:00, 20:30 and 01:00 WIB)
+## News checks (12:50, 21:50 and 00:50 WIB)
 
 1. Read the live page. Search for news since the time in its "Last updated" stamp.
 2. If there is news that passes the filter, add items to the **top** of the feed list:
