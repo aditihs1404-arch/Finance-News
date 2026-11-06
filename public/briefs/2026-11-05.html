@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+</head>
+<body>
+<title>Markets &amp; Finance</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,600;6..72,700&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a single-edition newspaper page. Masthead, a market strip, the lead line,
+   then stories in a main column with a narrow Asia + calendar rail beside them. */
+:root {
+  --paper: #fbfbf8;
+  --ink: #16181d;
+  --ink-2: #4a4f59;
+  --rule: #d9d9d2;
+  --rule-strong: #16181d;
+  --accent: #1f3a5f;      /* deep ink blue, used for kicker labels and links */
+  --tint: #eef1f5;
+  --up: #0f7a3d;
+  --down: #b42318;
+  --hi: #b42318;
+  --mid: #a15c07;
+  --lo: #6b7280;
+  --display: "Newsreader", "Georgia", "Times New Roman", serif;
+  --body: "Public Sans", "Helvetica Neue", Arial, sans-serif;
+  --data: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #121417; --ink: #ecebe6; --ink-2: #a8acb4; --rule: #2c3036; --rule-strong: #ecebe6;
+    --accent: #8fb3e0; --tint: #1b2027; --up: #4ccb7f; --down: #f2766b; --hi: #f2766b; --mid: #e3a33b; --lo: #9aa0aa;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #121417; --ink: #ecebe6; --ink-2: #a8acb4; --rule: #2c3036; --rule-strong: #ecebe6;
+  --accent: #8fb3e0; --tint: #1b2027; --up: #4ccb7f; --down: #f2766b; --hi: #f2766b; --mid: #e3a33b; --lo: #9aa0aa;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--paper); color: var(--ink);
+  font: 400 16px/1.6 var(--body);
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 24px 56px;
+}
+.page { max-width: 1080px; margin: 0 auto; display: flex; flex-direction: column; gap: 28px; }
+a { color: var(--accent); text-underline-offset: 2px; }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* Masthead */
+.mast { border-bottom: 3px double var(--rule-strong); padding-bottom: 14px; display: grid; gap: 6px; text-align: center; }
+.mast h1 { font: 700 clamp(2.4rem, 7vw, 4rem)/1 var(--display); letter-spacing: -0.02em; margin: 0; }
+.mast .meta { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 18px; font: 500 0.78rem/1.4 var(--body); text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-2); }
+
+/* Kicker labels */
+.kicker { font: 700 0.72rem/1.2 var(--body); text-transform: uppercase; letter-spacing: 0.12em; color: var(--accent); margin: 0 0 10px; }
+
+/* Market strip */
+.strip { display: grid; gap: 10px; }
+.tape { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); border-top: 1px solid var(--rule); border-left: 1px solid var(--rule); }
+.q { padding: 10px 12px; border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule); display: grid; gap: 2px; min-width: 0; }
+.q .n { font: 600 0.74rem/1.2 var(--body); text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-2); }
+.q .v { font: 500 1rem/1.3 var(--data); font-variant-numeric: tabular-nums; }
+.q .c { font: 500 0.82rem/1.3 var(--data); font-variant-numeric: tabular-nums; }
+.up { color: var(--up); } .down { color: var(--down); } .flat { color: var(--ink-2); }
+.note { font-size: 0.8rem; color: var(--ink-2); margin: 0; }
+
+/* Lead */
+.lead { border-top: 1px solid var(--rule-strong); border-bottom: 1px solid var(--rule); padding-block: 18px; }
+.lead p.big { font: 600 clamp(1.4rem, 3.4vw, 2rem)/1.25 var(--display); margin: 0; text-wrap: balance; max-width: 30ch; }
+.lead ul { margin: 14px 0 0; padding-left: 1.1em; display: grid; gap: 4px; max-width: 70ch; }
+
+/* Main grid */
+.grid { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 36px; align-items: start; }
+@media (max-width: 860px) { .grid { grid-template-columns: minmax(0, 1fr); } }
+
+.stories { display: flex; flex-direction: column; }
+.story { padding-block: 18px; border-top: 1px solid var(--rule); display: grid; gap: 8px; min-width: 0; }
+.story:first-of-type { border-top: 0; padding-top: 0; }
+.story h3 { font: 700 clamp(1.25rem, 2.6vw, 1.5rem)/1.2 var(--display); margin: 0; text-wrap: balance; }
+.story p { margin: 0; max-width: 68ch; }
+.story .why { background: var(--tint); padding: 10px 12px; font-size: 0.95rem; }
+.story .why b { font-weight: 700; }
+.who { display: flex; flex-wrap: wrap; gap: 6px; font: 500 0.78rem/1 var(--data); }
+.who span { border: 1px solid var(--rule); padding: 4px 6px; }
+.tag { display: inline-flex; align-items: center; gap: 6px; font: 700 0.7rem/1 var(--body); text-transform: uppercase; letter-spacing: 0.1em; }
+.tag::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
+.tag.hi { color: var(--hi); } .tag.mid { color: var(--mid); } .tag.lo { color: var(--lo); }
+
+/* Rail */
+.rail { display: flex; flex-direction: column; gap: 28px; border-left: 1px solid var(--rule); padding-left: 24px; min-width: 0; }
+@media (max-width: 860px) { .rail { border-left: 0; padding-left: 0; border-top: 1px solid var(--rule-strong); padding-top: 20px; } }
+.rail h2 { font: 700 1.25rem/1.2 var(--display); margin: 0 0 4px; }
+.country { padding-block: 10px; border-top: 1px solid var(--rule); display: grid; gap: 4px; }
+.country:first-of-type { border-top: 0; }
+.country .row { display: flex; justify-content: space-between; gap: 8px; align-items: baseline; }
+.country .row strong { font: 700 0.95rem/1.3 var(--body); }
+.country .row span { font: 500 0.82rem/1.3 var(--data); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.country p { margin: 0; font-size: 0.9rem; color: var(--ink-2); }
+
+.cal { list-style: none; margin: 0; padding: 0; display: grid; }
+.cal li { display: grid; grid-template-columns: 76px minmax(0, 1fr); gap: 10px; padding-block: 10px; border-top: 1px solid var(--rule); }
+.cal li:first-child { border-top: 0; }
+.cal time { font: 500 0.78rem/1.35 var(--data); color: var(--accent); }
+.cal b { display: block; font-size: 0.95rem; }
+.cal span { font-size: 0.88rem; color: var(--ink-2); }
+
+/* Since this morning feed */
+.feed { display: grid; gap: 10px; border: 1px solid var(--rule-strong); padding: 14px 16px; }
+.feed-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 4px 16px; }
+.feed-head h2 { font: 700 1.25rem/1.2 var(--display); margin: 0; }
+.stamp { font: 500 0.78rem/1.3 var(--data); color: var(--ink-2); }
+.feed ol { list-style: none; margin: 0; padding: 0; display: grid; }
+.feed li { display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 12px; padding-block: 10px; border-top: 1px solid var(--rule); }
+.feed li:first-child { border-top: 0; padding-top: 2px; }
+.feed time { font: 500 0.8rem/1.5 var(--data); color: var(--accent); }
+.feed b { display: block; font: 700 1rem/1.35 var(--body); }
+.feed p { margin: 2px 0 0; font-size: 0.93rem; color: var(--ink-2); max-width: 70ch; }
+.feed .empty { color: var(--ink-2); font-size: 0.92rem; margin: 0; }
+.feed .how { margin: 0; font-size: 0.82rem; color: var(--ink-2); }
+.feed li.new time::after { content: "NEW"; display: block; width: max-content; margin-top: 6px; padding: 3px 5px; font: 700 0.62rem/1 var(--body); letter-spacing: 0.1em; color: var(--paper); background: var(--accent); }
+.kicker .asof { font-weight: 500; letter-spacing: 0.06em; color: var(--ink-2); }
+.story .meta { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; margin: 0; }
+.story .when { font: 500 0.75rem/1.3 var(--data); color: var(--ink-2); }
+.stories .written { margin: -4px 0 6px; font-size: 0.82rem; color: var(--ink-2); }
+
+/* Earnings scorecard */
+.earn { display: grid; gap: 10px; }
+.earn h2 { font: 700 1.25rem/1.2 var(--display); margin: 0; }
+.tbl { overflow-x: auto; border-top: 1px solid var(--rule-strong); }
+.tbl table { width: 100%; min-width: 640px; border-collapse: collapse; font-size: 0.92rem; }
+.tbl th { text-align: left; font: 700 0.7rem/1.2 var(--body); text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-2); padding: 10px 10px 8px 0; border-bottom: 1px solid var(--rule); }
+.tbl td { padding: 10px 10px 10px 0; border-bottom: 1px solid var(--rule); vertical-align: top; }
+.tbl td.tk { font: 500 0.82rem/1.4 var(--data); white-space: nowrap; }
+.tbl td.tk b { display: block; font: 700 0.95rem/1.3 var(--body); }
+.tbl td.mv { font: 500 0.85rem/1.4 var(--data); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.pill { display: inline-block; font: 700 0.68rem/1 var(--body); text-transform: uppercase; letter-spacing: 0.08em; padding: 4px 6px; border: 1px solid currentColor; white-space: nowrap; }
+
+footer { border-top: 1px solid var(--rule-strong); padding-top: 14px; display: grid; gap: 8px; font-size: 0.82rem; color: var(--ink-2); }
+footer ul { margin: 0; padding-left: 1.1em; display: grid; gap: 2px; }
+footer li { overflow-wrap: anywhere; }
+</style>
+
+
+<div class="page">
+
+  <header class="mast">
+    <h1>Markets &amp; Finance</h1>
+    <div class="meta">
+      <span>Thursday, 5 November 2026</span>
+      <span>All times Jakarta (WIB)</span>
+      <span>Morning brief covers US session of Wed 04 Nov</span>
+    </div>
+  </header>
+
+  <section class="strip" aria-labelledby="k-close">
+    <p class="kicker" id="k-close">US close · Wednesday 4 Nov</p>
+    <div class="tape">
+      <div class="q"><span class="n">Dow</span><span class="v">53,356.12</span><span class="c up">+1,569.40 · +3.03%</span></div>
+      <div class="q"><span class="n">S&amp;P 500</span><span class="v">7,688.62</span><span class="c up">+1.58%</span></div>
+      <div class="q"><span class="n">Nasdaq</span><span class="v">25,736.51</span><span class="c up">+1.44%</span></div>
+      <div class="q"><span class="n">10-yr yield</span><span class="v">≈4.89%</span><span class="c down">≈−6 bp on the day</span></div>
+      <div class="q"><span class="n">Dollar index</span><span class="v">n/a</span><span class="c flat">Weaker, at a one-month low; level not quoted</span></div>
+      <div class="q"><span class="n">Gold</span><span class="v">$4,073</span><span class="c up">futures +3.4% · silver $52.28 (+5.1%)</span></div>
+      <div class="q"><span class="n">Oil (Brent)</span><span class="v">$94.62</span><span class="c down">−8.67% · WTI $88.12 (−8.29%)</span></div>
+      <div class="q"><span class="n">Nasdaq-100 fut.</span><span class="v">n/a</span><span class="c flat">Flat after the close; level not quoted</span></div>
+    </div>
+    <p class="note">Wednesday is the latest completed US session (the day after the midterms). Index levels are closing figures from CNBC and Yahoo Finance; the yield is approximate because outlets differ slightly. After the close, Dow futures were up about 0.2%, S&amp;P 500 futures about 0.1% and Nasdaq-100 futures flat. I found no confirmed report of how Tokyo and Seoul opened this morning. Thursday's US session opens at 21:30 WIB; live moves go in the feed below.</p>
+  </section>
+
+  <section class="lead" aria-labelledby="k-one">
+    <p class="kicker" id="k-one">The one thing to know <span class="asof">· updated Fri 06 Nov, 00:50 WIB</span></p>
+    <p class="big">Wall Street's post-election rally has reversed: the Nasdaq plunged about 5% into correction territory as chip stocks crashed, with the S&amp;P 500 down more than 3% and the Dow about 2.7% on fears of limits on AI data-center spending.</p>
+    <ul>
+      <li>Today: the US session turned into a rout. Intraday the Nasdaq is down about 4.7-5%, the S&amp;P 500 more than 3% and the Dow about 2.7% (about 1,430 points). The chip index is down roughly 10%, with Micron about -12%, AMD about -13%, and Nvidia and Broadcom about -6%. The 10-year yield eased to about 4.83%; reports on oil conflict, with Brent back near $97 in one. Figures are intraday and provisional.</li>
+      <li>Asia, Thu: the Kospi closed down 5.28% at 5,383.80 after a trading curb (SK Hynix about -9%, Samsung about -6.7%), the Nikkei fell about 1.8% and the Taiex 1.6-3.2%, while the Hang Seng gained 3.7%. Expect more pressure on Tokyo, Seoul and Taipei chip names at Friday's open.</li>
+      <li>Ahead: weekly jobless claims came in at 189,000 (estimate 197,000). The October jobs report is due Fri 6 Nov at 20:30 WIB and could shift December Fed-hike odds.</li>
+    </ul>
+  </section>
+
+  <!-- FEED:START — checks at 12:50, 21:50 and 00:50 WIB add items at the top of this list -->
+  <section class="feed" aria-labelledby="k-feed">
+    <div class="feed-head">
+      <h2 id="k-feed">Since this morning</h2>
+      <span class="stamp">Last updated Fri 06 Nov, 00:50 WIB · Next update 08:00 WIB (morning brief)</span>
+    </div>
+    <p class="how">Newest first. Items marked NEW came in with the latest check. Today's items stay here until the next morning brief, then move to the archive.</p>
+    <ol>
+<li class="new"><time>Fri<br>00:50</time><div><span class="tag hi">High impact</span><b>Nasdaq plunges about 5% into correction as chip stocks crash</b><p>Intraday reports show the Nasdaq down roughly 4.7-5% (more than 10% below last month's record), the S&amp;P 500 off more than 3% and the Dow down about 2.7%, erasing Wednesday's post-election rally. Fears that a Democratic Congress will restrict AI data-center build-outs hit chips hard: Micron fell about 12%, AMD about 13%, and Nvidia and Broadcom about 6-7%.</p></div></li>
+<li class="new"><time>Fri<br>00:50</time><div><span class="tag mid">Medium impact</span><b>Jobless claims fall to 189,000, below forecasts; 10-year yield eases to about 4.83%</b><p>Initial claims for the week ended Oct 31 came in at 189,000 against a 197,000 estimate, with continuing claims up 23,000 to 1.72 million. The 10-year Treasury yield slipped to about 4.83% from 4.90% as investors sought safety, ahead of Friday's October jobs report.</p></div></li>
+<li><time>Thu<br>21:50</time><div><span class="tag hi">High impact</span><b>US stocks split at the open: Dow up, Nasdaq down as chips slide</b><p>Early reports show the Dow up about 0.6% while the S&amp;P 500 is down about 0.4% and the Nasdaq about 1.1%, as the post-election rally fades and semiconductor stocks fall. Figures conflict between sources and are intraday, so they may change.</p></div></li>
+<li><time>Thu<br>21:50</time><div><span class="tag hi">High impact</span><b>Kospi closes down 5.3% after a trading curb as chip stocks crash</b><p>The Kospi ended at 5,383.80 (-5.28%) after a sell-side curb was triggered, with SK Hynix down about 9% and Samsung about 6.7%. It is the biggest daily drop in this run of AI-linked selling and raises the risk of spillover into Taiwan's chip makers.</p></div></li>
+<li><time>Thu<br>21:50</time><div><span class="tag mid">Medium impact</span><b>Hang Seng jumps 3.7% while Nikkei and Taiex fall</b><p>Hong Kong rose to 24,796.98 as Chinese tech and chip names rallied (Hang Seng Tech up over 5%), while the Nikkei fell about 1.8% and the Taiex fell between 1.6% and 3.2% depending on the report. Money appears to be rotating out of AI-linked chip names in Korea, Japan and Taiwan into China.</p></div></li>
+<li><time>Thu<br>08:00</time><div><span class="tag hi">High impact</span><b>Kospi slides 2.3% as SK Hynix and Samsung drop sharply</b><p>South Korea's Kospi fell 2.33% in early trade, with SK Hynix down 9.03% and Samsung Electronics down 6.65%; SoftBank fell over 6% in Tokyo. CNBC linked it to fears of tighter data-center limits under a Democratic Congress, which would weigh on AI chip demand.</p></div></li>
+<li><time>Thu<br>08:00</time><div><span class="tag mid">Medium impact</span><b>Nikkei edges up 0.5% and Topix gains over 2% at the open</b><p>Japan's Nikkei 225 rose 0.49% while the broader Topix climbed more than 2%, and Australia's ASX 200 gained 1.39%. Falling oil and Wall Street's rally supported the broad market while chip names lagged.</p></div></li>
+    </ol>
+  </section>
+  <!-- FEED:END -->
+
+  <div class="grid">
+    <main class="stories" aria-label="Top stories">
+      <p class="kicker">Morning brief · top stories, ranked by impact</p>
+      <p class="written">Written Thu 05 Nov, 07:55 WIB. For anything newer, see "Since this morning" above.</p>
+
+      <article class="story">
+        <p class="meta"><span class="tag hi">High impact</span><span class="when">Wed 4 Nov</span></p>
+        <h3>Dow surges 1,569 points, its best day since April 2025, after Democrats win Congress</h3>
+        <p>The Dow closed at 53,356.12 (+3.03%), back above 53,000 for the first time since 8 Sept. The S&amp;P 500 rose 1.58% to 7,688.62 and the Nasdaq 1.44% to 25,736.51. Falling oil, easing yields and demand for healthcare and value-oriented retailers helped, and the rally beat JPMorgan's call for a 0.5% dip.</p>
+        <p class="why"><b>Why it matters:</b> Political risk is easing and stocks are rotating away from AI names; one portfolio manager told CNBC the move could prove temporary.</p>
+        <div class="who"><span>DIA</span><span>SPY</span><span>QQQ</span><span>XLV</span><span>IWM</span></div>
+      </article>
+
+      <article class="story">
+        <p class="meta"><span class="tag hi">High impact</span><span class="when">Wed 4 Nov</span></p>
+        <h3>Oil plunges more than 8% on hopes of an end to the Iran war</h3>
+        <p>WTI futures fell 8.29% to settle at $88.12 a barrel and Brent fell 8.67% to $94.62. Analysts linked the drop to hopes for an end to the Iran war, after Vice President JD Vance blamed it for Republican election losses.</p>
+        <p class="why"><b>Why it matters:</b> Cheaper oil lowers inflation worries and helps import-dependent Japan, Korea and Taiwan, but it weighs on energy stocks.</p>
+        <div class="who"><span>USO</span><span>XLE</span><span>Nikkei 225</span><span>Kospi</span><span>Taiex</span></div>
+      </article>
+
+      <article class="story">
+        <p class="meta"><span class="tag mid">Medium impact</span><span class="when">Wed 4 Nov</span></p>
+        <h3>Yields ease, dollar hits a one-month low, gold jumps 3.4%</h3>
+        <p>The 10-year Treasury yield fell about 6 bp to roughly 4.89%. The dollar index slid to a one-month low. Front-month gold futures rose 3.4% to settle at $4,073 and silver futures gained 5.1% to $52.28, though both were among 2026's weakest assets before the midterms.</p>
+        <p class="why"><b>Why it matters:</b> A weaker dollar and lower yields support gold and Asian currencies, and ease pressure on growth stocks.</p>
+        <div class="who"><span>TLT</span><span>GLD</span><span>SLV</span><span>UUP</span><span>USD/JPY</span></div>
+      </article>
+
+      <article class="story">
+        <p class="meta"><span class="tag hi">High impact</span><span class="when">Wed 4 Nov</span></p>
+        <h3>After hours: AppLovin soars about 24%, Qualcomm drops about 6% on a weak outlook</h3>
+        <p>AppLovin beat on results and guidance (adjusted EBITDA $1.84 billion vs $1.73 billion expected). Qualcomm beat on the quarter but its Q1 outlook fell short as a memory shortage weighs on smartphone sales. Coherent rose about 7%, while Expedia and Snap fell about 7% and Cava about 11%.</p>
+        <p class="why"><b>Why it matters:</b> It sets the tone for ad-tech and chip stocks at Thursday's US open, and Qualcomm's supply warning touches the Asian handset and memory chain.</p>
+        <div class="who"><span>APP</span><span>QCOM</span><span>COHR</span><span>EXPE</span><span>SNAP</span><span>CAVA</span></div>
+      </article>
+
+      <article class="story">
+        <p class="meta"><span class="tag mid">Medium impact</span><span class="when">5–6 Nov</span></p>
+        <h3>Jobs report on Friday is the next test for Fed-hike bets</h3>
+        <p>The Fed held rates last week, with two of its 12 voters backing a hike, and markets are weighing a possible December increase. A strong October payrolls report could raise those odds; weekly jobless claims come out Thursday.</p>
+        <p class="why"><b>Why it matters:</b> A hot number could push yields back up and challenge the post-midterm rally in rate-sensitive growth stocks.</p>
+        <div class="who"><span>Treasuries</span><span>SPY</span><span>QQQ</span><span>USD/JPY</span></div>
+      </article>
+    </main>
+
+    <aside class="rail">
+
+      <section aria-labelledby="k-cal">
+        <h2 id="k-cal">Coming up</h2>
+        <p class="note">All times Jakarta (WIB).</p>
+        <ul class="cal">
+          <li><time>Thu 5 Nov<br>20:30</time><div><b>US weekly jobless claims</b><span>An early read on the labor market before Friday's payrolls.</span></div></li>
+          <li><time>Thu 5 Nov<br>21:30</time><div><b>US markets open</b><span>First reaction to AppLovin, Qualcomm and Expedia results.</span></div></li>
+          <li><time>Fri 6 Nov<br>20:30</time><div><b>US jobs report (October)</b><span>Key input for December Fed-hike odds.</span></div></li>
+        </ul>
+      </section>
+    </aside>
+  </div>
+
+  <section class="earn" aria-labelledby="k-earn">
+    <h2 id="k-earn">Earnings scorecard</h2>
+    <p class="note">Reported Wednesday 4 Nov after the US close, as covered by CNBC and Yahoo Finance. Stock moves are extended-trading, not official closes.</p>
+    <div class="tbl">
+      <table>
+        <thead><tr><th>Company</th><th>Result</th><th>Stock</th><th>The one-line reason</th></tr></thead>
+        <tbody>
+          <tr><td class="tk"><b>AppLovin</b>APP</td><td><span class="pill up">Beat</span></td><td class="mv up">≈+24% after hours</td><td>Better-than-expected results and guidance; adjusted EBITDA $1.84B vs $1.73B expected.</td></tr>
+          <tr><td class="tk"><b>Coherent</b>COHR</td><td><span class="pill up">Beat</span></td><td class="mv up">≈+7% after hours</td><td>Adjusted EPS $2.09 vs $1.99 expected; revenue and guidance also above expectations.</td></tr>
+          <tr><td class="tk"><b>Qualcomm</b>QCOM</td><td><span class="pill down">Weak outlook</span></td><td class="mv down">≈−6% after hours</td><td>Small Q4 beat, but the Q1 outlook fell short as a memory shortage weighs on smartphone sales.</td></tr>
+          <tr><td class="tk"><b>Expedia</b>EXPE</td><td><span class="pill down">Weak outlook</span></td><td class="mv down">≈−7% after hours</td><td>Beat on Q3, but its Q4 revenue forecast came in slightly below expectations.</td></tr>
+          <tr><td class="tk"><b>Cava</b>CAVA</td><td><span class="pill down">Miss</span></td><td class="mv down">≈−11% after hours</td><td>Q3 results missed expectations after a cyclospora outbreak.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <footer>
+    <span>Past days: <a href="https://finance-news.aditihs1404.workers.dev/briefs/" target="_blank" rel="noopener">archive of earlier editions</a>.</span>
+    <span>Sources: CNBC and Yahoo Finance. These summaries are for your own reading, not buy or sell advice. Figures marked ≈ are approximate.</span>
+    <ul>
+      <li><a href="https://www.cnbc.com/2026/11/04/stock-market-today-live-updates.html" target="_blank" rel="noopener">CNBC: Stock futures are little changed after big rally following Democrats' decisive midterm wins</a></li>
+      <li><a href="https://finance.yahoo.com/markets/stocks/articles/stock-market-today-nov-4-221001197.html" target="_blank" rel="noopener">Yahoo Finance: Stock Market Today, Nov. 4: Dow surges 3%</a></li>
+      <li><a href="https://finance.yahoo.com/markets/stocks/articles/stock-market-today-dow-futures-135650348.html" target="_blank" rel="noopener">Yahoo Finance: Dow jumps nearly 1,600 points; WTI oil slides 8%</a></li>
+      <li><a href="https://www.cnbc.com/2026/11/04/gold-silver-platinum-dollar-midterms.html" target="_blank" rel="noopener">CNBC: Gold and silver prices jump, dollar dips as Democrats take control of Congress</a></li>
+      <li><a href="https://www.cnbc.com/2026/11/04/stocks-making-the-biggest-moves-after-hours-cohr-app-expe-more.html" target="_blank" rel="noopener">CNBC: Stocks making the biggest moves after hours</a></li>
+      <li><a href="https://finance.yahoo.com/technology/article/qualcomm-tops-q4-estimates-but-q1-earnings-outlook-falls-short-211716293.html" target="_blank" rel="noopener">Yahoo Finance: Qualcomm tops Q4 estimates, but Q1 outlook falls short</a></li>
+      <li><a href="https://finance.yahoo.com/markets/stocks/articles/applovin-q3-earnings-snapshot-211851115.html" target="_blank" rel="noopener">Yahoo Finance: AppLovin Q3 earnings snapshot</a></li>
+    </ul>
+  </footer>
+</div>
+
+</body>
+</html>
