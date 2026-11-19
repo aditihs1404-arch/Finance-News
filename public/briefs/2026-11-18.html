@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+</head>
+<body>
+<title>Markets &amp; Finance</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,600;6..72,700&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a single-edition newspaper page. Masthead, a market strip, the lead line,
+   then stories in a main column with a narrow Asia + calendar rail beside them. */
+:root {
+  --paper: #fbfbf8;
+  --ink: #16181d;
+  --ink-2: #4a4f59;
+  --rule: #d9d9d2;
+  --rule-strong: #16181d;
+  --accent: #1f3a5f;      /* deep ink blue, used for kicker labels and links */
+  --tint: #eef1f5;
+  --up: #0f7a3d;
+  --down: #b42318;
+  --hi: #b42318;
+  --mid: #a15c07;
+  --lo: #6b7280;
+  --display: "Newsreader", "Georgia", "Times New Roman", serif;
+  --body: "Public Sans", "Helvetica Neue", Arial, sans-serif;
+  --data: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #121417; --ink: #ecebe6; --ink-2: #a8acb4; --rule: #2c3036; --rule-strong: #ecebe6;
+    --accent: #8fb3e0; --tint: #1b2027; --up: #4ccb7f; --down: #f2766b; --hi: #f2766b; --mid: #e3a33b; --lo: #9aa0aa;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #121417; --ink: #ecebe6; --ink-2: #a8acb4; --rule: #2c3036; --rule-strong: #ecebe6;
+  --accent: #8fb3e0; --tint: #1b2027; --up: #4ccb7f; --down: #f2766b; --hi: #f2766b; --mid: #e3a33b; --lo: #9aa0aa;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--paper); color: var(--ink);
+  font: 400 16px/1.6 var(--body);
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 24px 56px;
+}
+.page { max-width: 1080px; margin: 0 auto; display: flex; flex-direction: column; gap: 28px; }
+a { color: var(--accent); text-underline-offset: 2px; }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* Masthead */
+.mast { border-bottom: 3px double var(--rule-strong); padding-bottom: 14px; display: grid; gap: 6px; text-align: center; }
+.mast h1 { font: 700 clamp(2.4rem, 7vw, 4rem)/1 var(--display); letter-spacing: -0.02em; margin: 0; }
+.mast .meta { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 18px; font: 500 0.78rem/1.4 var(--body); text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-2); }
+
+/* Kicker labels */
+.kicker { font: 700 0.72rem/1.2 var(--body); text-transform: uppercase; letter-spacing: 0.12em; color: var(--accent); margin: 0 0 10px; }
+
+/* Market strip */
+.strip { display: grid; gap: 10px; }
+.tape { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); border-top: 1px solid var(--rule); border-left: 1px solid var(--rule); }
+.q { padding: 10px 12px; border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule); display: grid; gap: 2px; min-width: 0; }
+.q .n { font: 600 0.74rem/1.2 var(--body); text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-2); }
+.q .v { font: 500 1rem/1.3 var(--data); font-variant-numeric: tabular-nums; }
+.q .c { font: 500 0.82rem/1.3 var(--data); font-variant-numeric: tabular-nums; }
+.up { color: var(--up); } .down { color: var(--down); } .flat { color: var(--ink-2); }
+.note { font-size: 0.8rem; color: var(--ink-2); margin: 0; }
+
+/* Lead */
+.lead { border-top: 1px solid var(--rule-strong); border-bottom: 1px solid var(--rule); padding-block: 18px; }
+.lead p.big { font: 600 clamp(1.4rem, 3.4vw, 2rem)/1.25 var(--display); margin: 0; text-wrap: balance; max-width: 30ch; }
+.lead ul { margin: 14px 0 0; padding-left: 1.1em; display: grid; gap: 4px; max-width: 70ch; }
+
+/* Main grid */
+.grid { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 36px; align-items: start; }
+@media (max-width: 860px) { .grid { grid-template-columns: minmax(0, 1fr); } }
+
+.stories { display: flex; flex-direction: column; }
+.story { padding-block: 18px; border-top: 1px solid var(--rule); display: grid; gap: 8px; min-width: 0; }
+.story:first-of-type { border-top: 0; padding-top: 0; }
+.story h3 { font: 700 clamp(1.25rem, 2.6vw, 1.5rem)/1.2 var(--display); margin: 0; text-wrap: balance; }
+.story p { margin: 0; max-width: 68ch; }
+.story .why { background: var(--tint); padding: 10px 12px; font-size: 0.95rem; }
+.story .why b { font-weight: 700; }
+.who { display: flex; flex-wrap: wrap; gap: 6px; font: 500 0.78rem/1 var(--data); }
+.who span { border: 1px solid var(--rule); padding: 4px 6px; }
+.tag { display: inline-flex; align-items: center; gap: 6px; font: 700 0.7rem/1 var(--body); text-transform: uppercase; letter-spacing: 0.1em; }
+.tag::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
+.tag.hi { color: var(--hi); } .tag.mid { color: var(--mid); } .tag.lo { color: var(--lo); }
+
+/* Rail */
+.rail { display: flex; flex-direction: column; gap: 28px; border-left: 1px solid var(--rule); padding-left: 24px; min-width: 0; }
+@media (max-width: 860px) { .rail { border-left: 0; padding-left: 0; border-top: 1px solid var(--rule-strong); padding-top: 20px; } }
+.rail h2 { font: 700 1.25rem/1.2 var(--display); margin: 0 0 4px; }
+.country { padding-block: 10px; border-top: 1px solid var(--rule); display: grid; gap: 4px; }
+.country:first-of-type { border-top: 0; }
+.country .row { display: flex; justify-content: space-between; gap: 8px; align-items: baseline; }
+.country .row strong { font: 700 0.95rem/1.3 var(--body); }
+.country .row span { font: 500 0.82rem/1.3 var(--data); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.country p { margin: 0; font-size: 0.9rem; color: var(--ink-2); }
+
+.cal { list-style: none; margin: 0; padding: 0; display: grid; }
+.cal li { display: grid; grid-template-columns: 76px minmax(0, 1fr); gap: 10px; padding-block: 10px; border-top: 1px solid var(--rule); }
+.cal li:first-child { border-top: 0; }
+.cal time { font: 500 0.78rem/1.35 var(--data); color: var(--accent); }
+.cal b { display: block; font-size: 0.95rem; }
+.cal span { font-size: 0.88rem; color: var(--ink-2); }
+
+/* Since this morning feed */
+.feed { display: grid; gap: 10px; border: 1px solid var(--rule-strong); padding: 14px 16px; }
+.feed-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 4px 16px; }
+.feed-head h2 { font: 700 1.25rem/1.2 var(--display); margin: 0; }
+.stamp { font: 500 0.78rem/1.3 var(--data); color: var(--ink-2); }
+.feed ol { list-style: none; margin: 0; padding: 0; display: grid; }
+.feed li { display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 12px; padding-block: 10px; border-top: 1px solid var(--rule); }
+.feed li:first-child { border-top: 0; padding-top: 2px; }
+.feed time { font: 500 0.8rem/1.5 var(--data); color: var(--accent); }
+.feed b { display: block; font: 700 1rem/1.35 var(--body); }
+.feed p { margin: 2px 0 0; font-size: 0.93rem; color: var(--ink-2); max-width: 70ch; }
+.feed .empty { color: var(--ink-2); font-size: 0.92rem; margin: 0; }
+.feed .how { margin: 0; font-size: 0.82rem; color: var(--ink-2); }
+.feed li.new time::after { content: "NEW"; display: block; width: max-content; margin-top: 6px; padding: 3px 5px; font: 700 0.62rem/1 var(--body); letter-spacing: 0.1em; color: var(--paper); background: var(--accent); }
+.kicker .asof { font-weight: 500; letter-spacing: 0.06em; color: var(--ink-2); }
+.story .meta { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; margin: 0; }
+.story .when { font: 500 0.75rem/1.3 var(--data); color: var(--ink-2); }
+.stories .written { margin: -4px 0 6px; font-size: 0.82rem; color: var(--ink-2); }
+
+/* Earnings scorecard */
+.earn { display: grid; gap: 10px; }
+.earn h2 { font: 700 1.25rem/1.2 var(--display); margin: 0; }
+.tbl { overflow-x: auto; border-top: 1px solid var(--rule-strong); }
+.tbl table { width: 100%; min-width: 640px; border-collapse: collapse; font-size: 0.92rem; }
+.tbl th { text-align: left; font: 700 0.7rem/1.2 var(--body); text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-2); padding: 10px 10px 8px 0; border-bottom: 1px solid var(--rule); }
+.tbl td { padding: 10px 10px 10px 0; border-bottom: 1px solid var(--rule); vertical-align: top; }
+.tbl td.tk { font: 500 0.82rem/1.4 var(--data); white-space: nowrap; }
+.tbl td.tk b { display: block; font: 700 0.95rem/1.3 var(--body); }
+.tbl td.mv { font: 500 0.85rem/1.4 var(--data); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.pill { display: inline-block; font: 700 0.68rem/1 var(--body); text-transform: uppercase; letter-spacing: 0.08em; padding: 4px 6px; border: 1px solid currentColor; white-space: nowrap; }
+
+footer { border-top: 1px solid var(--rule-strong); padding-top: 14px; display: grid; gap: 8px; font-size: 0.82rem; color: var(--ink-2); }
+footer ul { margin: 0; padding-left: 1.1em; display: grid; gap: 2px; }
+footer li { overflow-wrap: anywhere; }
+</style>
+
+<div class="page">
+
+  <header class="mast">
+    <h1>Markets &amp; Finance</h1>
+    <div class="meta">
+      <span>Wednesday, 18 November 2026</span>
+      <span>All times Jakarta (WIB)</span>
+      <span>Morning brief covers US session of Tue 17 Nov</span>
+    </div>
+  </header>
+
+  <section class="strip" aria-labelledby="k-close">
+    <p class="kicker" id="k-close">US close · Tuesday 17 Nov</p>
+    <div class="tape">
+      <div class="q"><span class="n">Dow</span><span class="v">50,759.42</span><span class="c down">−848.75 · −1.64%</span></div>
+      <div class="q"><span class="n">S&amp;P 500</span><span class="v">7,340.53</span><span class="c down">−1.03%</span></div>
+      <div class="q"><span class="n">Nasdaq</span><span class="v">24,328.38</span><span class="c down">−0.74%</span></div>
+      <div class="q"><span class="n">10-yr yield</span><span class="v">≈5.11%</span><span class="c flat">≈−0.01 pt</span></div>
+      <div class="q"><span class="n">Dollar index</span><span class="v">≈103.6</span><span class="c up">fresh 19-month high</span></div>
+      <div class="q"><span class="n">Gold</span><span class="v">≈$3,869</span><span class="c flat">near 1-year low</span></div>
+      <div class="q"><span class="n">Oil (WTI)</span><span class="v">≈$85</span><span class="c down">lower · Brent ≈$92</span></div>
+      <div class="q"><span class="n">Nasdaq-100 fut.</span><span class="v">higher</span><span class="c up">after Nvidia beat</span></div>
+    </div>
+    <p class="note">Tuesday is the latest completed US session. Index closes from Yahoo Finance; yield, dollar, gold and oil are intraday readings from CNBC and Yahoo Finance, not official settlements. Asia opened higher at about 07:00 WIB: Kospi +2.9% with Samsung +4.5% and SK Hynix +5.8%, Nikkei 225 +1.1% after Japan's October exports jumped 20.5%; Topix about flat (opening moves, CNBC).</p>
+  </section>
+
+  <section class="lead" aria-labelledby="k-one">
+    <p class="kicker" id="k-one">The one thing to know <span class="asof">· updated Thu 19 Nov, 00:50 WIB</span></p>
+    <p class="big">Nvidia beat and raised — $115.8 billion revenue, a $130 billion forecast and a $150 billion buyback — lifted chips in Seoul, but the rally faded in New York as the Jensen Huang scandal and tighter US chip curbs on China hang over the AI trade.</p>
+    <ul>
+      <li>Today: Wall Street turned lower by midday — Dow −1.2% (about −609 points) at 50,131.15, S&amp;P 500 −0.6% at 7,296.27, below its 200-day average, Nasdaq −0.3% (around noon New York time). Asia closed higher earlier: Kospi +2%, Nikkei +0.28%. Oil lower, WTI ≈$85.07 (−1.1%), Brent ≈$92.72.</li>
+      <li>Nvidia gave up an early gain of about 2.7% and was down about 2.6% by midday, dragging AI cloud stocks; Target beat and raised but dipped, and Lowe's fell on a weaker margin forecast.</li>
+      <li>Next: Fed minutes at 02:00 WIB Thursday; Anthropic prices its IPO after the US close — it is weighing a bigger deal and a price well above $80 — and trades Thursday; Walmart reports Thursday before the US open.</li>
+    </ul>
+  </section>
+
+  <!-- FEED:START — checks at 12:50, 21:50 and 00:50 WIB add items at the top of this list -->
+  <section class="feed" aria-labelledby="k-feed">
+    <div class="feed-head">
+      <h2 id="k-feed">Since this morning</h2>
+      <span class="stamp">Last updated Thu 19 Nov, 00:50 WIB · Next update 08:00 WIB (morning brief)</span>
+    </div>
+    <p class="how">Newest first. Items marked NEW came in with the latest check. Today's items stay here until the next morning brief, then move to the archive.</p>
+    <ol>
+      <li class="new"><time>Thu<br>00:50</time><div><span class="tag hi">High impact</span><b>Nvidia bounce fizzles: Dow down 600 points, S&amp;P 500 below 200-day line</b><p>Nvidia erased an early gain of about 2.7% and was down about 2.6% by midday, and the Dow fell about 609 points (1.2%) to 50,131.15 while the S&amp;P 500 lost 0.6% to 7,296.27 and the Nasdaq 0.3%. The S&amp;P 500 is now below its 200-day moving average, a level traders watch closely, as doubts over AI spending and Nvidia's leadership turmoil outweigh its strong results.</p></div></li>
+      <li class="new"><time>Thu<br>00:50</time><div><span class="tag mid">Medium impact</span><b>Anthropic weighs bigger IPO, price well above $80</b><p>Anthropic is considering upsizing its offering and setting the price well above its $70–78 range, sources told CNBC, with about $400 billion of institutional and nearly $100 billion of retail demand indicated (not binding). Pricing comes after Wednesday's US close, with trading as "ANT" on Thursday; a hot debut could pull money from other AI stocks.</p></div></li>
+      <li><time>Wed<br>21:50</time><div><span class="tag hi">High impact</span><b>Wall Street opens mixed: Nasdaq up, Dow down after Nvidia beat</b><p>At the open the Nasdaq-100 rose 0.7% and the S&amp;P 500 0.2%, while the Dow slipped 0.3%, with Nvidia up about 3% before the bell after its revenue beat and $130 billion forecast. Tech is trying to break a four-day S&amp;P 500 and Nasdaq losing streak, though the Dow's weakness shows the rebound is narrow.</p></div></li>
+      <li><time>Wed<br>21:50</time><div><span class="tag mid">Medium impact</span><b>Target beats and raises, Lowe's slides on margin outlook</b><p>Target earned an adjusted $2.65 a share (about $2.05 expected, helped by $0.50 of tariff refunds) on $27.1 billion revenue and raised its full-year profit guide, yet shares dipped; Lowe's fell more than 3% premarket after cutting its operating-margin forecast despite a beat. The split gives a mixed read on US consumers ahead of Walmart on Thursday.</p></div></li>
+      <li><time>Wed<br>15:10</time><div><span class="tag mid">Medium impact</span><b>Asia turns around by the close: Kospi +2% on chips</b><p>After slipping into the red at midday, the Kospi closed up 2% at 5,067.44 as chip heavyweights rose, and the Nikkei finished up 0.28% at 59,024.28, while the Hang Seng fell about 0.9% and the Topix lost 0.42%. Nvidia's results ultimately outweighed scandal worries for Korean chipmakers, a supportive sign for Samsung and SK Hynix.</p></div></li>
+      <li><time>Wed<br>12:50</time><div><span class="tag mid">Medium impact</span><b>Iran says it targeted US drone and missile sites in Kuwait</b><p>Iran said its army hit US installations at Kuwait's Ali Al Salem air base; Kuwait said only that its air defences countered drone attacks, and peace efforts in the nine-month war appear stalled. Oil barely reacted — WTI was down about 1.2% at $84.9 on signs of recovering Hormuz flows — but any escalation is the main upside risk for energy prices.</p></div></li>
+      <li><time>Wed<br>10:50</time><div><span class="tag hi">High impact</span><b>Asia's Nvidia bounce fades: Kospi, Nikkei slip into the red</b><p>After opening up 2.9%, the Kospi was down 0.2% at 4,959.83 by midday, with the Nikkei −0.3%, Hang Seng −0.5% and Shanghai −0.3%; Tokyo, Seoul and Taipei were among the weakest markets. Traders looked past Nvidia's beat to the Jensen Huang scandal and new US curbs on Chinese chip access, a warning sign for chip stocks when the US market opens tonight.</p></div></li>
+    </ol>
+  </section>
+  <!-- FEED:END -->
+
+  <div class="grid">
+    <main class="stories" aria-label="Top stories">
+      <p class="kicker">Morning brief · top stories, ranked by impact</p>
+      <p class="written">Written Wed 18 Nov, 07:50 WIB. For anything newer, see "Since this morning" above.</p>
+
+      <article class="story">
+        <p class="meta"><span class="tag hi">High impact</span><span class="when">Tue 17 Nov</span></p>
+        <h3>Nvidia tops forecasts in first report since Huang's exit</h3>
+        <p>Fiscal third-quarter revenue rose 103% to $115.8 billion against about $109 billion expected, with adjusted earnings of $2.68 a share versus $2.47; data-centre sales were $107.6 billion. Nvidia guided fourth-quarter revenue to $130 billion (±3%, with an extra week and no China data-centre sales), lifted its next-fiscal-year outlook to about 75% growth and announced a $150 billion buyback. Gross margin is seen easing to 71–72% from 74.9%. Shares, which closed at $155.46, rose roughly 2–4% after hours.</p>
+        <p class="why"><b>Why it matters:</b> The beat answers the question hanging over the AI trade after a month-long slide; it sets the tone for chip stocks in New York, Seoul and Taipei today.</p>
+        <div class="who"><span>NVDA</span><span>TSM</span><span>005930.KS</span><span>000660.KS</span><span>SMH</span></div>
+      </article>
+
+      <article class="story">
+        <p class="meta"><span class="tag hi">High impact</span><span class="when">Tue 17 Nov</span></p>
+        <h3>Dow drops 849 points; S&amp;P 500 at lowest close since July</h3>
+        <p>The Dow fell 1.64% to 50,759.42, the S&amp;P 500 1.03% to 7,340.53 and the Nasdaq 0.74% to 24,328.38. It was the first four-day losing streak for the S&amp;P 500 and Nasdaq since September, driven by the fallout from Jensen Huang's resignation and yields above 5%.</p>
+        <p class="why"><b>Why it matters:</b> The market went into Nvidia oversold; whether futures' rebound holds through the US open tonight shows if the selling is done.</p>
+        <div class="who"><span>SPY</span><span>QQQ</span><span>DIA</span></div>
+      </article>
+
+      <article class="story">
+        <p class="meta"><span class="tag mid">Medium impact</span><span class="when">Tue 17 Nov</span></p>
+        <h3>Dollar at 19-month high, gold near one-year low, oil slips</h3>
+        <p>The dollar index hit a fresh 19-month peak near 103.6, keeping gold near $3,869, close to its lowest in over a year. The 10-year yield held around 5.11% after October retail sales, and traders still price about a 95% chance of a December Fed hike (CME FedWatch). Oil eased, WTI ≈$85 and Brent ≈$92, on the IEA's fourth-quarter surplus forecast.</p>
+        <p class="why"><b>Why it matters:</b> A strong dollar and 5% yields keep pressure on the yen, Asian currencies and gold; softer oil helps the inflation picture.</p>
+        <div class="who"><span>DXY</span><span>GLD</span><span>TLT</span><span>USO</span></div>
+      </article>
+
+      <article class="story">
+        <p class="meta"><span class="tag mid">Medium impact</span><span class="when">18–19 Nov</span></p>
+        <h3>Anthropic IPO prices tonight, trades Thursday as "ANT"</h3>
+        <p>Anthropic is offering 825 million shares at $70–78, raising up to $64.4 billion and valuing it at up to about $1.4 trillion; reports say demand is about seven times the shares on offer and the price could be set above $80. Pricing comes Wednesday evening US time, with Nasdaq trading from Thursday.</p>
+        <p class="why"><b>Why it matters:</b> The biggest IPO on record tests appetite for AI stocks right after Nvidia's numbers, and could draw money from other AI names.</p>
+        <div class="who"><span>ANT</span><span>QQQ</span><span>AMZN</span><span>GOOGL</span></div>
+      </article>
+
+      <article class="story">
+        <p class="meta"><span class="tag mid">Medium impact</span><span class="when">18–19 Nov</span></p>
+        <h3>Retail test: Target and Lowe's today, Walmart Thursday</h3>
+        <p>Target (consensus ≈$2.04 a share on $26.4 billion sales) and Lowe's (≈$2.89 on $22.4 billion) report before the US open Wednesday; Walmart (≈$0.64 on $186.5 billion) follows Thursday. Options price a move of about 8% in Target and 6% in Walmart.</p>
+        <p class="why"><b>Why it matters:</b> After Home Depot's mixed outlook, these show how consumers are coping with a Fed that is still raising rates.</p>
+        <div class="who"><span>TGT</span><span>LOW</span><span>WMT</span><span>XRT</span></div>
+      </article>
+    </main>
+
+    <aside class="rail">
+
+      <section aria-labelledby="k-cal">
+        <h2 id="k-cal">Coming up</h2>
+        <p class="note">All times Jakarta (WIB).</p>
+        <ul class="cal">
+          <li><time>Wed 18 Nov<br>evening</time><div><b>Target, Lowe's earnings</b><span>Before the US open; consumer and housing spending.</span></div></li>
+          <li><time>Thu 19 Nov<br>02:00</time><div><b>Fed minutes</b><span>Clues on how far the hiking path runs.</span></div></li>
+          <li><time>Thu 19 Nov<br>morning</time><div><b>Anthropic IPO pricing</b><span>Set Wednesday evening US time; range $70–78.</span></div></li>
+          <li><time>Thu 19 Nov<br>evening</time><div><b>Walmart earnings</b><span>Before the US open.</span></div></li>
+          <li><time>Thu 19 Nov<br>(US session)</time><div><b>Anthropic starts trading</b><span>Nasdaq, ticker ANT.</span></div></li>
+          <li><time>Thu 10 Dec<br>02:00</time><div><b>Fed decision</b><span>A quarter-point hike is ≈95% priced.</span></div></li>
+        </ul>
+      </section>
+    </aside>
+  </div>
+
+  <section class="earn" aria-labelledby="k-earn">
+    <h2 id="k-earn">Earnings scorecard</h2>
+    <div class="tbl">
+      <table>
+        <thead><tr><th>Company</th><th>Result</th><th>Key numbers</th><th>Stock</th></tr></thead>
+        <tbody>
+          <tr><td class="tk"><b>Nvidia</b>NVDA</td><td><span class="pill up">Beat</span></td><td>Revenue $115.8B vs ≈$109B est.; EPS $2.68 vs $2.47; Q4 guide $130B; $150B buyback</td><td class="mv up">≈+2–4% after hours</td></tr>
+          <tr><td class="tk"><b>Home Depot</b>HD</td><td><span class="pill up">Beat</span></td><td>Revenue $43.4B vs $42.8B est.; adj. EPS $3.86; CFO McPhail to become CEO 23 Nov</td><td class="mv flat">mixed outlook</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <footer>
+    <span>Past days: <a href="https://finance-news.aditihs1404.workers.dev/briefs/" target="_blank" rel="noopener">archive of earlier editions</a>.</span>
+    <span>Sources: CNBC and Yahoo Finance. These summaries are for your own reading, not buy or sell advice. Figures marked ≈ are approximate.</span>
+    <ul>
+      <li><a href="https://finance.yahoo.com/markets/live/stock-market-today-tuesday-november-17-dow-sp-500-nasdaq-nvidia-earnings-retail-sales-143848454.html" target="_blank" rel="noopener">Yahoo Finance: Dow sinks 850 points, S&amp;P 500 and Nasdaq drop with focus on Nvidia earnings</a></li>
+      <li><a href="https://www.cnbc.com/2026/11/17/stock-market-today-live-updates.html" target="_blank" rel="noopener">CNBC: Stock futures rise as Nvidia gains on earnings beat and solid outlook</a></li>
+      <li><a href="https://finance.yahoo.com/markets/stocks/articles/nvidia-first-report-without-jensen-212643285.html" target="_blank" rel="noopener">Yahoo Finance: Nvidia's first report without Jensen Huang</a></li>
+      <li><a href="https://finance.yahoo.com/markets/stocks/articles/nvidia-announces-financial-results-third-212000678.html" target="_blank" rel="noopener">Yahoo Finance: NVIDIA announces results for third quarter fiscal 2027</a></li>
+      <li><a href="https://www.cnbc.com/2026/11/17/treasury-yields-bonds-inflation.html" target="_blank" rel="noopener">CNBC: Treasury yields</a></li>
+      <li><a href="https://www.cnbc.com/2026/11/17/gold-hovers-near-over-one-year-low-as-firm-dollar-fed-hike-bets-weigh.html" target="_blank" rel="noopener">CNBC: Gold hovers close to one-year low</a></li>
+      <li><a href="https://www.cnbc.com/2026/11/17/oil-slips-on-supply-surplus-outlook-despite-gulf-tensions.html" target="_blank" rel="noopener">CNBC: Oil slips on supply surplus outlook</a></li>
+      <li><a href="https://finance.yahoo.com/markets/stocks/articles/anthropic-prices-ipo-wednesday-investors-185110963.html" target="_blank" rel="noopener">Yahoo Finance: Anthropic prices its IPO Wednesday</a></li>
+      <li><a href="https://finance.yahoo.com/markets/stocks/articles/retail-earnings-wmt-tgt-hd-230000690.html" target="_blank" rel="noopener">Yahoo Finance: Retail earnings — WMT, TGT, HD</a></li>
+    </ul>
+  </footer>
+</div>
+
+</body>
+</html>
