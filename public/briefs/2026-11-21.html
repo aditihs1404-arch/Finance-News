@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+</head>
+<body>
+<body>
+<title>Markets &amp; Finance</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,600;6..72,700&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a single-edition newspaper page. Masthead, a market strip, the lead line,
+   then stories in a main column with a narrow Asia + calendar rail beside them. */
+:root {
+  --paper: #fbfbf8;
+  --ink: #16181d;
+  --ink-2: #4a4f59;
+  --rule: #d9d9d2;
+  --rule-strong: #16181d;
+  --accent: #1f3a5f;      /* deep ink blue, used for kicker labels and links */
+  --tint: #eef1f5;
+  --up: #0f7a3d;
+  --down: #b42318;
+  --hi: #b42318;
+  --mid: #a15c07;
+  --lo: #6b7280;
+  --display: "Newsreader", "Georgia", "Times New Roman", serif;
+  --body: "Public Sans", "Helvetica Neue", Arial, sans-serif;
+  --data: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #121417; --ink: #ecebe6; --ink-2: #a8acb4; --rule: #2c3036; --rule-strong: #ecebe6;
+    --accent: #8fb3e0; --tint: #1b2027; --up: #4ccb7f; --down: #f2766b; --hi: #f2766b; --mid: #e3a33b; --lo: #9aa0aa;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #121417; --ink: #ecebe6; --ink-2: #a8acb4; --rule: #2c3036; --rule-strong: #ecebe6;
+  --accent: #8fb3e0; --tint: #1b2027; --up: #4ccb7f; --down: #f2766b; --hi: #f2766b; --mid: #e3a33b; --lo: #9aa0aa;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--paper); color: var(--ink);
+  font: 400 16px/1.6 var(--body);
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 24px 56px;
+}
+.page { max-width: 1080px; margin: 0 auto; display: flex; flex-direction: column; gap: 28px; }
+a { color: var(--accent); text-underline-offset: 2px; }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* Masthead */
+.mast { border-bottom: 3px double var(--rule-strong); padding-bottom: 14px; display: grid; gap: 6px; text-align: center; }
+.mast h1 { font: 700 clamp(2.4rem, 7vw, 4rem)/1 var(--display); letter-spacing: -0.02em; margin: 0; }
+.mast .meta { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 18px; font: 500 0.78rem/1.4 var(--body); text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-2); }
+
+/* Kicker labels */
+.kicker { font: 700 0.72rem/1.2 var(--body); text-transform: uppercase; letter-spacing: 0.12em; color: var(--accent); margin: 0 0 10px; }
+
+/* Market strip */
+.strip { display: grid; gap: 10px; }
+.tape { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); border-top: 1px solid var(--rule); border-left: 1px solid var(--rule); }
+.q { padding: 10px 12px; border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule); display: grid; gap: 2px; min-width: 0; }
+.q .n { font: 600 0.74rem/1.2 var(--body); text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-2); }
+.q .v { font: 500 1rem/1.3 var(--data); font-variant-numeric: tabular-nums; }
+.q .c { font: 500 0.82rem/1.3 var(--data); font-variant-numeric: tabular-nums; }
+.up { color: var(--up); } .down { color: var(--down); } .flat { color: var(--ink-2); }
+.note { font-size: 0.8rem; color: var(--ink-2); margin: 0; }
+
+/* Lead */
+.lead { border-top: 1px solid var(--rule-strong); border-bottom: 1px solid var(--rule); padding-block: 18px; }
+.lead p.big { font: 600 clamp(1.4rem, 3.4vw, 2rem)/1.25 var(--display); margin: 0; text-wrap: balance; max-width: 30ch; }
+.lead ul { margin: 14px 0 0; padding-left: 1.1em; display: grid; gap: 4px; max-width: 70ch; }
+
+/* Main grid */
+.grid { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 36px; align-items: start; }
+@media (max-width: 860px) { .grid { grid-template-columns: minmax(0, 1fr); } }
+
+.stories { display: flex; flex-direction: column; }
+.story { padding-block: 18px; border-top: 1px solid var(--rule); display: grid; gap: 8px; min-width: 0; }
+.story:first-of-type { border-top: 0; padding-top: 0; }
+.story h3 { font: 700 clamp(1.25rem, 2.6vw, 1.5rem)/1.2 var(--display); margin: 0; text-wrap: balance; }
+.story p { margin: 0; max-width: 68ch; }
+.story .why { background: var(--tint); padding: 10px 12px; font-size: 0.95rem; }
+.story .why b { font-weight: 700; }
+.who { display: flex; flex-wrap: wrap; gap: 6px; font: 500 0.78rem/1 var(--data); }
+.who span { border: 1px solid var(--rule); padding: 4px 6px; }
+.tag { display: inline-flex; align-items: center; gap: 6px; font: 700 0.7rem/1 var(--body); text-transform: uppercase; letter-spacing: 0.1em; }
+.tag::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
+.tag.hi { color: var(--hi); } .tag.mid { color: var(--mid); } .tag.lo { color: var(--lo); }
+
+/* Rail */
+.rail { display: flex; flex-direction: column; gap: 28px; border-left: 1px solid var(--rule); padding-left: 24px; min-width: 0; }
+@media (max-width: 860px) { .rail { border-left: 0; padding-left: 0; border-top: 1px solid var(--rule-strong); padding-top: 20px; } }
+.rail h2 { font: 700 1.25rem/1.2 var(--display); margin: 0 0 4px; }
+.country { padding-block: 10px; border-top: 1px solid var(--rule); display: grid; gap: 4px; }
+.country:first-of-type { border-top: 0; }
+.country .row { display: flex; justify-content: space-between; gap: 8px; align-items: baseline; }
+.country .row strong { font: 700 0.95rem/1.3 var(--body); }
+.country .row span { font: 500 0.82rem/1.3 var(--data); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.country p { margin: 0; font-size: 0.9rem; color: var(--ink-2); }
+
+.cal { list-style: none; margin: 0; padding: 0; display: grid; }
+.cal li { display: grid; grid-template-columns: 76px minmax(0, 1fr); gap: 10px; padding-block: 10px; border-top: 1px solid var(--rule); }
+.cal li:first-child { border-top: 0; }
+.cal time { font: 500 0.78rem/1.35 var(--data); color: var(--accent); }
+.cal b { display: block; font-size: 0.95rem; }
+.cal span { font-size: 0.88rem; color: var(--ink-2); }
+
+/* Since this morning feed */
+.feed { display: grid; gap: 10px; border: 1px solid var(--rule-strong); padding: 14px 16px; }
+.feed-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 4px 16px; }
+.feed-head h2 { font: 700 1.25rem/1.2 var(--display); margin: 0; }
+.stamp { font: 500 0.78rem/1.3 var(--data); color: var(--ink-2); }
+.feed ol { list-style: none; margin: 0; padding: 0; display: grid; }
+.feed li { display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 12px; padding-block: 10px; border-top: 1px solid var(--rule); }
+.feed li:first-child { border-top: 0; padding-top: 2px; }
+.feed time { font: 500 0.8rem/1.5 var(--data); color: var(--accent); }
+.feed b { display: block; font: 700 1rem/1.35 var(--body); }
+.feed p { margin: 2px 0 0; font-size: 0.93rem; color: var(--ink-2); max-width: 70ch; }
+.feed .empty { color: var(--ink-2); font-size: 0.92rem; margin: 0; }
+.feed .how { margin: 0; font-size: 0.82rem; color: var(--ink-2); }
+.feed li.new time::after { content: "NEW"; display: block; width: max-content; margin-top: 6px; padding: 3px 5px; font: 700 0.62rem/1 var(--body); letter-spacing: 0.1em; color: var(--paper); background: var(--accent); }
+.kicker .asof { font-weight: 500; letter-spacing: 0.06em; color: var(--ink-2); }
+.story .meta { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; margin: 0; }
+.story .when { font: 500 0.75rem/1.3 var(--data); color: var(--ink-2); }
+.stories .written { margin: -4px 0 6px; font-size: 0.82rem; color: var(--ink-2); }
+
+/* Earnings scorecard */
+.earn { display: grid; gap: 10px; }
+.earn h2 { font: 700 1.25rem/1.2 var(--display); margin: 0; }
+.tbl { overflow-x: auto; border-top: 1px solid var(--rule-strong); }
+.tbl table { width: 100%; min-width: 640px; border-collapse: collapse; font-size: 0.92rem; }
+.tbl th { text-align: left; font: 700 0.7rem/1.2 var(--body); text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-2); padding: 10px 10px 8px 0; border-bottom: 1px solid var(--rule); }
+.tbl td { padding: 10px 10px 10px 0; border-bottom: 1px solid var(--rule); vertical-align: top; }
+.tbl td.tk { font: 500 0.82rem/1.4 var(--data); white-space: nowrap; }
+.tbl td.tk b { display: block; font: 700 0.95rem/1.3 var(--body); }
+.tbl td.mv { font: 500 0.85rem/1.4 var(--data); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.pill { display: inline-block; font: 700 0.68rem/1 var(--body); text-transform: uppercase; letter-spacing: 0.08em; padding: 4px 6px; border: 1px solid currentColor; white-space: nowrap; }
+
+footer { border-top: 1px solid var(--rule-strong); padding-top: 14px; display: grid; gap: 8px; font-size: 0.82rem; color: var(--ink-2); }
+footer ul { margin: 0; padding-left: 1.1em; display: grid; gap: 2px; }
+footer li { overflow-wrap: anywhere; }
+</style>
+
+
+<div class="page">
+
+
+  <header class="mast">
+    <h1>Markets &amp; Finance</h1>
+    <div class="meta">
+      <span>Saturday, 21 November 2026</span>
+      <span>All times Jakarta (WIB)</span>
+      <span>Morning brief covers US session of Fri 20 Nov</span>
+    </div>
+  </header>
+
+  <section class="strip" aria-labelledby="k-close">
+    <p class="kicker" id="k-close">US close · Friday 20 Nov</p>
+    <div class="tape">
+      <div class="q"><span class="n">Dow</span><span class="v">48,147.33</span><span class="c down">−949.73 · −1.93%</span></div>
+      <div class="q"><span class="n">S&amp;P 500</span><span class="v">6,910.42</span><span class="c down">−265.41 · −3.70%</span></div>
+      <div class="q"><span class="n">Nasdaq</span><span class="v">22,617.73</span><span class="c down">−1,261.47 · −5.28%</span></div>
+      <div class="q"><span class="n">10-yr yield</span><span class="v">≈4.93–4.97%</span><span class="c down">≈−10–12 bp</span></div>
+      <div class="q"><span class="n">Dollar index</span><span class="v">no Friday reading</span><span class="c flat">near 19-month high earlier in week</span></div>
+      <div class="q"><span class="n">Gold (fut.)</span><span class="v">≈$3,519</span><span class="c down">≈−4.6% · 52-week low</span></div>
+      <div class="q"><span class="n">Oil (WTI Jan)</span><span class="v">≈$83.0</span><span class="c up">≈+0.7% · Brent ≈$92.2</span></div>
+      <div class="q"><span class="n">Nasdaq-100 fut.</span><span class="v">closed</span><span class="c flat">reopen Mon ≈06:00 WIB</span></div>
+    </div>
+    <p class="note">Friday is the latest completed US session. Index closes from CNBC and Yahoo Finance; yield, gold and oil are late-session readings, not settlements. Asian markets are closed for the weekend.</p>
+  </section>
+
+  <section class="lead" aria-labelledby="k-one">
+    <p class="kicker" id="k-one">The one thing to know <span class="asof">· updated Sat 21 Nov, 07:50 WIB</span></p>
+    <p class="big">The Nasdaq crashed 5.3% on Friday and the S&amp;P 500 and Dow closed in correction, after a report that the SEC is probing Nvidia's accounting sent its shares down 14%.</p>
+    <ul>
+      <li>The S&amp;P 500 fell 3.7% for a seventh straight loss, and the Nasdaq is now negative for 2026.</li>
+      <li>Chip stocks had their worst week since 2001; Taiwan, Korea and Japan reopen Monday with more catching-up to do.</li>
+      <li>Investors fled to Treasuries: the 10-year yield dropped back below 5%, but gold fell about 4.6% to a 52-week low.</li>
+    </ul>
+  </section>
+
+  <!-- FEED:START — checks at 12:50, 21:50 and 00:50 WIB add items at the top of this list -->
+  <section class="feed" aria-labelledby="k-feed">
+    <div class="feed-head">
+      <h2 id="k-feed">Since this morning</h2>
+      <span class="stamp">Last updated Sat 21 Nov, 07:50 WIB · Next update Mon 08:00 WIB</span>
+    </div>
+    <p class="how">Newest first. Items marked NEW came in with the latest check. Today's items stay here until the next morning brief, then move to the archive.</p>
+    <ol>
+      <p class="empty">Next update Monday 08:00 WIB.</p>
+    </ol>
+  </section>
+  <!-- FEED:END -->
+
+  <div class="grid">
+    <main class="stories" aria-label="Top stories">
+      <p class="kicker">Morning brief · top stories, ranked by impact</p>
+      <p class="written">Written Sat 21 Nov, 07:50 WIB. For anything newer, see "Since this morning" above.</p>
+
+      <article class="story">
+        <p class="meta"><span class="tag hi">High impact</span><span class="when">Fri 20 Nov</span></p>
+        <h3>Nasdaq sinks 5.3%; S&amp;P 500 and Dow close in correction</h3>
+        <p>The Nasdaq Composite lost 1,261.47 points, or 5.28%, to 22,617.73, turning negative for the year. The S&amp;P 500 fell 3.70% to 6,910.42, its seventh straight decline, and the Dow dropped 1.93% to 48,147.33. Both the S&amp;P 500 and the Dow ended more than 10% below their records, which is correction territory (CNBC, Yahoo Finance). Anthropic lost as much as 12% on its second day of trading, giving back most of its debut gain.</p>
+        <p class="why"><b>Why it matters:</b> The AI sell-off has spread from a few chip stocks to the whole market. Rate-hike worries are still in the background, so there is little to cushion the fall.</p>
+        <div class="who"><span>QQQ</span><span>SPY</span><span>DIA</span><span>ANT</span></div>
+      </article>
+
+      <article class="story">
+        <p class="meta"><span class="tag hi">High impact</span><span class="when">Fri 20 Nov</span></p>
+        <h3>Nvidia plunges 14% on report of SEC accounting probe</h3>
+        <p>Reuters reported that SEC enforcement staff are examining "potential accounting issues" at Nvidia; the SEC declined to comment. The stock fell about 14% to a 52-week low, wiping out roughly $485–491 billion in value in one day (Yahoo Finance). CNBC says it is now on a seven-week losing streak, its longest since the 2008 financial crisis, coming after Jensen Huang's resignation as CEO. An investigation is not a finding of wrongdoing.</p>
+        <p class="why"><b>Why it matters:</b> Nvidia is the biggest single weight in the AI trade. Accounting doubts hit confidence in the whole chip supply chain, from AMD and Micron to TSMC, Samsung and SK Hynix.</p>
+        <div class="who"><span>NVDA</span><span>SMH</span><span>AMD</span><span>MU</span><span>TSM</span></div>
+      </article>
+
+      <article class="story">
+        <p class="meta"><span class="tag hi">High impact</span><span class="when">16–20 Nov</span></p>
+        <h3>Chips post worst week since 2001; Asia faces Monday catch-up</h3>
+        <p>Yahoo Finance says chip stocks had their worst week since 2001 and the Nasdaq-100 is nearing a bear market. In Asia on Friday, Taiwan's Taiex closed down 6.2% (down 17.5% on the week, its worst since 1991), the Kospi fell 5.2% and the Nikkei 225 about 5% — all before Nvidia's 14% drop in New York.</p>
+        <p class="why"><b>Why it matters:</b> Taipei, Seoul and Tokyo have not yet traded on Friday's US losses. Expect more pressure on Monday morning, with foreign money already leaving Asian tech.</p>
+        <div class="who"><span>EWT</span><span>EWY</span><span>EWJ</span><span>005930.KS</span><span>000660.KS</span></div>
+      </article>
+
+      <article class="story">
+        <p class="meta"><span class="tag mid">Medium impact</span><span class="when">Fri 20 Nov</span></p>
+        <h3>Yields fall sharply as investors run to bonds; gold slumps</h3>
+        <p>The 10-year Treasury yield fell about 10–12 basis points to roughly 4.93–4.97%, back below 5% (CNBC). Gold did not act as a haven: futures fell about 4.6% to around $3,519, a fresh 52-week low. A December Fed rate hike is still almost fully priced in.</p>
+        <p class="why"><b>Why it matters:</b> Lower yields ease pressure on borrowing costs, but they reflect fear, not good news. Gold's slide suggests investors are selling what they can to raise cash.</p>
+        <div class="who"><span>TLT</span><span>GLD</span><span>GDX</span></div>
+      </article>
+
+      <article class="story">
+        <p class="meta"><span class="tag mid">Medium impact</span><span class="when">Fri 20 Nov</span></p>
+        <h3>Oil heads for a third weekly drop as Hormuz flows recover</h3>
+        <p>Late on Friday Brent traded around $92.2 and January WTI around $83.0, slightly higher on the day, but Brent was on track for a weekly fall of nearly 4% and December WTI about 5% (CNBC). Shipments through the Strait of Hormuz are back near pre-war levels, feeding expectations of a supply surplus.</p>
+        <p class="why"><b>Why it matters:</b> Cheaper oil helps on inflation, which matters with a Fed hike on the table, and it helps big oil importers Japan, Korea and Taiwan.</p>
+        <div class="who"><span>USO</span><span>XLE</span><span>BNO</span></div>
+      </article>
+    </main>
+
+    <aside class="rail">
+
+      <section aria-labelledby="k-cal">
+        <h2 id="k-cal">Coming up</h2>
+        <p class="note">All times Jakarta (WIB).</p>
+        <ul class="cal">
+          <li><time>Mon 23 Nov<br>07:00</time><div><b>Tokyo and Seoul open</b><span>First Asian trade after Nvidia's 14% drop.</span></div></li>
+          <li><time>Thu 26 Nov</time><div><b>US markets closed for Thanksgiving</b><span>Thin, holiday-shortened week; Friday is usually a short session.</span></div></li>
+          <li><time>1–2 Dec</time><div><b>Congressional hearings on Nvidia</b><span>More scrutiny for the AI chip leader.</span></div></li>
+          <li><time>Thu 10 Dec<br>02:00</time><div><b>Fed decision</b><span>A quarter-point hike is almost fully priced.</span></div></li>
+        </ul>
+      </section>
+    </aside>
+  </div>
+
+  <footer>
+    <span>Past days: <a href="https://finance-news.aditihs1404.workers.dev/briefs/" target="_blank" rel="noopener">archive of earlier editions</a>.</span>
+    <span>Sources: CNBC and Yahoo Finance. These summaries are for your own reading, not buy or sell advice. Figures marked ≈ are approximate.</span>
+    <ul>
+      <li><a href="https://www.cnbc.com/2026/11/19/stock-market-today-live-updates.html" target="_blank" rel="noopener">CNBC: S&amp;P 500 and Dow close in correction; Nasdaq erases 2026 gain as AI rout picks up steam</a></li>
+      <li><a href="https://finance.yahoo.com/markets/stocks/articles/wall-st-futures-slip-anthropic-104746137.html" target="_blank" rel="noopener">Yahoo Finance: Wall St ends sharply lower on AI selloff, S&amp;P 500, Dow in correction</a></li>
+      <li><a href="https://www.cnbc.com/2026/11/20/sp-500-correction-market-sell-off.html" target="_blank" rel="noopener">CNBC: S&amp;P 500 correction: five forces behind the market sell-off</a></li>
+      <li><a href="https://www.cnbc.com/2026/11/20/nvidias-7-week-losing-streak-is-longest-since-2008-financial-crisis.html" target="_blank" rel="noopener">CNBC: Nvidia stock plunges 14%, longest weekly losing streak since 2008</a></li>
+      <li><a href="https://finance.yahoo.com/markets/stocks/articles/nvidia-stock-plunge-wipes-nearly-212722915.html" target="_blank" rel="noopener">Yahoo Finance: Nvidia stock plunge wipes out nearly $500 billion as SEC reportedly probes its accounting</a></li>
+      <li><a href="https://finance.yahoo.com/markets/article/chips-are-crashing-like-its-2008-as-the-nasdaq-100-nears-a-bear-market-192805534.html" target="_blank" rel="noopener">Yahoo Finance: Chips suffer worst week since 2001 as the Nasdaq nears a bear market</a></li>
+      <li><a href="https://www.cnbc.com/2026/11/20/treasury-yields-bonds-inflation.html" target="_blank" rel="noopener">CNBC: Treasury yields move sharply lower as investors flee to safe havens</a></li>
+      <li><a href="https://www.cnbc.com/2026/11/20/oil-wti-brent-hormuz.html" target="_blank" rel="noopener">CNBC: Oil prices set for third straight weekly decline on Middle East export flows</a></li>
+    </ul>
+  </footer>
+</div>
+
+</body>
+</html>
