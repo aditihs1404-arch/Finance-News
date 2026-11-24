@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+</head>
+<body>
+<body>
+<title>Markets &amp; Finance</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,600;6..72,700&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a single-edition newspaper page. Masthead, a market strip, the lead line,
+   then stories in a main column with a narrow Asia + calendar rail beside them. */
+:root {
+  --paper: #fbfbf8;
+  --ink: #16181d;
+  --ink-2: #4a4f59;
+  --rule: #d9d9d2;
+  --rule-strong: #16181d;
+  --accent: #1f3a5f;      /* deep ink blue, used for kicker labels and links */
+  --tint: #eef1f5;
+  --up: #0f7a3d;
+  --down: #b42318;
+  --hi: #b42318;
+  --mid: #a15c07;
+  --lo: #6b7280;
+  --display: "Newsreader", "Georgia", "Times New Roman", serif;
+  --body: "Public Sans", "Helvetica Neue", Arial, sans-serif;
+  --data: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #121417; --ink: #ecebe6; --ink-2: #a8acb4; --rule: #2c3036; --rule-strong: #ecebe6;
+    --accent: #8fb3e0; --tint: #1b2027; --up: #4ccb7f; --down: #f2766b; --hi: #f2766b; --mid: #e3a33b; --lo: #9aa0aa;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #121417; --ink: #ecebe6; --ink-2: #a8acb4; --rule: #2c3036; --rule-strong: #ecebe6;
+  --accent: #8fb3e0; --tint: #1b2027; --up: #4ccb7f; --down: #f2766b; --hi: #f2766b; --mid: #e3a33b; --lo: #9aa0aa;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--paper); color: var(--ink);
+  font: 400 16px/1.6 var(--body);
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 24px 56px;
+}
+.page { max-width: 1080px; margin: 0 auto; display: flex; flex-direction: column; gap: 28px; }
+a { color: var(--accent); text-underline-offset: 2px; }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* Masthead */
+.mast { border-bottom: 3px double var(--rule-strong); padding-bottom: 14px; display: grid; gap: 6px; text-align: center; }
+.mast h1 { font: 700 clamp(2.4rem, 7vw, 4rem)/1 var(--display); letter-spacing: -0.02em; margin: 0; }
+.mast .meta { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 18px; font: 500 0.78rem/1.4 var(--body); text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-2); }
+
+/* Kicker labels */
+.kicker { font: 700 0.72rem/1.2 var(--body); text-transform: uppercase; letter-spacing: 0.12em; color: var(--accent); margin: 0 0 10px; }
+
+/* Market strip */
+.strip { display: grid; gap: 10px; }
+.tape { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); border-top: 1px solid var(--rule); border-left: 1px solid var(--rule); }
+.q { padding: 10px 12px; border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule); display: grid; gap: 2px; min-width: 0; }
+.q .n { font: 600 0.74rem/1.2 var(--body); text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-2); }
+.q .v { font: 500 1rem/1.3 var(--data); font-variant-numeric: tabular-nums; }
+.q .c { font: 500 0.82rem/1.3 var(--data); font-variant-numeric: tabular-nums; }
+.up { color: var(--up); } .down { color: var(--down); } .flat { color: var(--ink-2); }
+.note { font-size: 0.8rem; color: var(--ink-2); margin: 0; }
+
+/* Lead */
+.lead { border-top: 1px solid var(--rule-strong); border-bottom: 1px solid var(--rule); padding-block: 18px; }
+.lead p.big { font: 600 clamp(1.4rem, 3.4vw, 2rem)/1.25 var(--display); margin: 0; text-wrap: balance; max-width: 30ch; }
+.lead ul { margin: 14px 0 0; padding-left: 1.1em; display: grid; gap: 4px; max-width: 70ch; }
+
+/* Main grid */
+.grid { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 36px; align-items: start; }
+@media (max-width: 860px) { .grid { grid-template-columns: minmax(0, 1fr); } }
+
+.stories { display: flex; flex-direction: column; }
+.story { padding-block: 18px; border-top: 1px solid var(--rule); display: grid; gap: 8px; min-width: 0; }
+.story:first-of-type { border-top: 0; padding-top: 0; }
+.story h3 { font: 700 clamp(1.25rem, 2.6vw, 1.5rem)/1.2 var(--display); margin: 0; text-wrap: balance; }
+.story p { margin: 0; max-width: 68ch; }
+.story .why { background: var(--tint); padding: 10px 12px; font-size: 0.95rem; }
+.story .why b { font-weight: 700; }
+.who { display: flex; flex-wrap: wrap; gap: 6px; font: 500 0.78rem/1 var(--data); }
+.who span { border: 1px solid var(--rule); padding: 4px 6px; }
+.tag { display: inline-flex; align-items: center; gap: 6px; font: 700 0.7rem/1 var(--body); text-transform: uppercase; letter-spacing: 0.1em; }
+.tag::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
+.tag.hi { color: var(--hi); } .tag.mid { color: var(--mid); } .tag.lo { color: var(--lo); }
+
+/* Rail */
+.rail { display: flex; flex-direction: column; gap: 28px; border-left: 1px solid var(--rule); padding-left: 24px; min-width: 0; }
+@media (max-width: 860px) { .rail { border-left: 0; padding-left: 0; border-top: 1px solid var(--rule-strong); padding-top: 20px; } }
+.rail h2 { font: 700 1.25rem/1.2 var(--display); margin: 0 0 4px; }
+.country { padding-block: 10px; border-top: 1px solid var(--rule); display: grid; gap: 4px; }
+.country:first-of-type { border-top: 0; }
+.country .row { display: flex; justify-content: space-between; gap: 8px; align-items: baseline; }
+.country .row strong { font: 700 0.95rem/1.3 var(--body); }
+.country .row span { font: 500 0.82rem/1.3 var(--data); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.country p { margin: 0; font-size: 0.9rem; color: var(--ink-2); }
+
+.cal { list-style: none; margin: 0; padding: 0; display: grid; }
+.cal li { display: grid; grid-template-columns: 76px minmax(0, 1fr); gap: 10px; padding-block: 10px; border-top: 1px solid var(--rule); }
+.cal li:first-child { border-top: 0; }
+.cal time { font: 500 0.78rem/1.35 var(--data); color: var(--accent); }
+.cal b { display: block; font-size: 0.95rem; }
+.cal span { font-size: 0.88rem; color: var(--ink-2); }
+
+/* Since this morning feed */
+.feed { display: grid; gap: 10px; border: 1px solid var(--rule-strong); padding: 14px 16px; }
+.feed-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 4px 16px; }
+.feed-head h2 { font: 700 1.25rem/1.2 var(--display); margin: 0; }
+.stamp { font: 500 0.78rem/1.3 var(--data); color: var(--ink-2); }
+.feed ol { list-style: none; margin: 0; padding: 0; display: grid; }
+.feed li { display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 12px; padding-block: 10px; border-top: 1px solid var(--rule); }
+.feed li:first-child { border-top: 0; padding-top: 2px; }
+.feed time { font: 500 0.8rem/1.5 var(--data); color: var(--accent); }
+.feed b { display: block; font: 700 1rem/1.35 var(--body); }
+.feed p { margin: 2px 0 0; font-size: 0.93rem; color: var(--ink-2); max-width: 70ch; }
+.feed .empty { color: var(--ink-2); font-size: 0.92rem; margin: 0; }
+.feed .how { margin: 0; font-size: 0.82rem; color: var(--ink-2); }
+.feed li.new time::after { content: "NEW"; display: block; width: max-content; margin-top: 6px; padding: 3px 5px; font: 700 0.62rem/1 var(--body); letter-spacing: 0.1em; color: var(--paper); background: var(--accent); }
+.kicker .asof { font-weight: 500; letter-spacing: 0.06em; color: var(--ink-2); }
+.story .meta { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; margin: 0; }
+.story .when { font: 500 0.75rem/1.3 var(--data); color: var(--ink-2); }
+.stories .written { margin: -4px 0 6px; font-size: 0.82rem; color: var(--ink-2); }
+
+/* Earnings scorecard */
+.earn { display: grid; gap: 10px; }
+.earn h2 { font: 700 1.25rem/1.2 var(--display); margin: 0; }
+.tbl { overflow-x: auto; border-top: 1px solid var(--rule-strong); }
+.tbl table { width: 100%; min-width: 640px; border-collapse: collapse; font-size: 0.92rem; }
+.tbl th { text-align: left; font: 700 0.7rem/1.2 var(--body); text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-2); padding: 10px 10px 8px 0; border-bottom: 1px solid var(--rule); }
+.tbl td { padding: 10px 10px 10px 0; border-bottom: 1px solid var(--rule); vertical-align: top; }
+.tbl td.tk { font: 500 0.82rem/1.4 var(--data); white-space: nowrap; }
+.tbl td.tk b { display: block; font: 700 0.95rem/1.3 var(--body); }
+.tbl td.mv { font: 500 0.85rem/1.4 var(--data); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.pill { display: inline-block; font: 700 0.68rem/1 var(--body); text-transform: uppercase; letter-spacing: 0.08em; padding: 4px 6px; border: 1px solid currentColor; white-space: nowrap; }
+
+footer { border-top: 1px solid var(--rule-strong); padding-top: 14px; display: grid; gap: 8px; font-size: 0.82rem; color: var(--ink-2); }
+footer ul { margin: 0; padding-left: 1.1em; display: grid; gap: 2px; }
+footer li { overflow-wrap: anywhere; }
+</style>
+
+
+<div class="page">
+
+
+  <header class="mast">
+    <h1>Markets &amp; Finance</h1>
+    <div class="meta">
+      <span>Monday, 23 November 2026</span>
+      <span>All times Jakarta (WIB)</span>
+      <span>Morning brief covers US session of Fri 20 Nov</span>
+      <span>Weekend recap and week ahead</span>
+    </div>
+  </header>
+
+  <section class="strip" aria-labelledby="k-close">
+    <p class="kicker" id="k-close">US close · Friday 20 Nov</p>
+    <div class="tape">
+      <div class="q"><span class="n">Dow</span><span class="v">48,147.33</span><span class="c down">−949.73 · −1.93%</span></div>
+      <div class="q"><span class="n">S&amp;P 500</span><span class="v">6,910.42</span><span class="c down">−265.41 · −3.70%</span></div>
+      <div class="q"><span class="n">Nasdaq</span><span class="v">22,617.73</span><span class="c down">−1,261.47 · −5.28%</span></div>
+      <div class="q"><span class="n">10-yr yield</span><span class="v">≈4.93–4.97%</span><span class="c down">≈−10–12 bp</span></div>
+      <div class="q"><span class="n">Dollar index</span><span class="v">no Friday reading</span><span class="c flat">near 19-month high earlier in week</span></div>
+      <div class="q"><span class="n">Gold (fut.)</span><span class="v">≈$3,519</span><span class="c down">≈−4.6% · 52-week low</span></div>
+      <div class="q"><span class="n">Oil (WTI Jan)</span><span class="v">≈$83.0</span><span class="c up">≈+0.7% · Brent ≈$92.2</span></div>
+      <div class="q"><span class="n">Nasdaq-100 fut.</span><span class="v">rebounding</span><span class="c up">≈+2.8% early Monday</span></div>
+    </div>
+    <p class="note">Friday is the latest completed US session. Index closes from CNBC and Yahoo Finance; yield, gold and oil are late-session readings, not settlements. Futures figure is from early Monday Asian hours and moves through the session.</p>
+  </section>
+
+  <section class="lead" aria-labelledby="k-one">
+    <p class="kicker" id="k-one">The one thing to know <span class="asof">· updated Tue 24 Nov, 00:45 WIB</span></p>
+    <p class="big">Nvidia reinstated Jensen Huang as CEO and its stock jumped roughly 30%, lifting the Nasdaq about 6% by midday in a sharp rebound from last week's AI rout.</p>
+    <ul>
+      <li>Today: at midday in New York the Nasdaq was up about 6.3%, the S&amp;P 500 about 4.5% (out of correction) and the Dow about 2.8%, with the chip index up about 15%. The 10-year yield is up about 4 bp near 4.95%; Brent is down about 1.3% near $91. In Asia, Kospi closed down 3.3% and Taiwan about 2% higher.</li>
+      <li>Nvidia's board says its independent investigation continues, and the SEC accounting questions reported Friday are not resolved, so the rebound can still fade. Korea's rate decision Thursday is expected to bring a quarter-point hike.</li>
+      <li>A holiday-shortened week: PCE inflation on Wednesday, US markets shut Thursday for Thanksgiving; a December Fed hike is about 96% priced.</li>
+    </ul>
+  </section>
+
+  <!-- FEED:START — checks at 12:50, 21:50 and 00:50 WIB add items at the top of this list -->
+  <section class="feed" aria-labelledby="k-feed">
+    <div class="feed-head">
+      <h2 id="k-feed">Since this morning</h2>
+      <span class="stamp">Last updated Tue 24 Nov, 00:45 WIB · Next update 08:00 WIB (morning brief)</span>
+    </div>
+    <p class="how">Newest first. Items marked NEW came in with the latest check. Today's items stay here until the next morning brief, then move to the archive.</p>
+    <ol>
+<li class="new"><time>Tue<br>00:40</time><div><span class="tag hi">High impact</span><b>Rally holds at midday: Nasdaq up about 6%, S&amp;P 500 back out of correction</b><p>By midday in New York, Yahoo Finance had the Nasdaq up about 6.3%, the S&amp;P 500 about 4.5% and the Dow about 2.8% (more than 1,400 points), with Nvidia still up about 30%, the Philadelphia chip index up about 15%, Intel about 13% and AMD about 7%. The S&amp;P 500 has climbed out of correction territory, but strategists such as Nomura's Charlie McElligott warn against reading too much into one huge bounce.</p></div></li>
+<li class="new"><time>Tue<br>00:30</time><div><span class="tag mid">Medium impact</span><b>Oil extends its dip; 10-year yield holds near 4.95%</b><p>Brent fell about 1.3% to around $91.3 a barrel as more Middle East supply offset worries about shipping and refinery attacks, while the 10-year Treasury yield stayed up about 4 basis points near 4.95% (CNBC). Traders still see about a 96% chance of a December Fed hike, and New York Fed President John Williams speaks later today.</p></div></li>
+<li><time>Mon<br>21:45</time><div><span class="tag hi">High impact</span><b>Nasdaq jumps about 7% and S&amp;P 500 about 5% at the US open</b><p>Shortly after the 21:30 WIB open, CNBC had the Nasdaq up about 7% and the S&amp;P 500 about 5%, with Yahoo Finance putting the Dow up about 2.5%, as chip stocks rallied with Nvidia. It is one of the biggest one-day bounces in years after last week's 10% Nasdaq fall, but these are early intraday moves and the close is what counts.</p></div></li>
+<li><time>Mon<br>21:10</time><div><span class="tag hi">High impact</span><b>Nvidia reinstates Jensen Huang as CEO; stock up roughly 30%</b><p>Nvidia's board unanimously reinstated Huang as president and CEO, 12 days after accepting his resignation, a day after President Trump publicly urged it to; Colette Kress returns to being CFO, and the board's independent investigation continues (Yahoo Finance). Shares rose about 27% before the bell and around 30% after the open, but remain below their pre-resignation close of $173.73.</p></div></li>
+<li><time>Mon<br>15:45</time><div><span class="tag mid">Medium impact</span><b>Treasury yields rise as investors leave safe havens; oil slips</b><p>The 10-year yield rose about 4 basis points to roughly 4.96% and the 2-year about 7 basis points to 4.69% early Monday, with CME FedWatch showing about a 96% chance of a December Fed hike (CNBC). Brent slipped about 0.7% to near $92 and WTI to near $83, held up by the unresolved Iran conflict.</p></div></li>
+<li><time>Mon<br>15:00</time><div><span class="tag mid">Medium impact</span><b>Kospi closes down 3.3%; Taiwan ends about 2% higher</b><p>Korea's Kospi closed 3.31% lower at 4,708.54 after falling more than 5% at one point, with Samsung Electronics and SK Hynix both down about 3%; Hong Kong's Hang Seng ended down 0.1% and Shanghai up 0.2% (Yahoo Finance). Taiwan's Taiex closed about 2% higher with TSMC up about 2% as the stabilization fund stepped in, so Asia's chip selloff was easing before the Nvidia news.</p></div></li>
+<li><time>Mon<br>12:05</time><div><span class="tag hi">High impact</span><b>Kospi down about 3% at midday as chip selloff spreads to Seoul</b><p>South Korea's Kospi was down about 3.2% near 4,715 around midday, after sliding as much as about 4% to a 10-month low, with Samsung Electronics off about 3.6% and SK Hynix about 3.2% (CNBC, Yahoo Finance). Korean memory makers are absorbing Friday's Nvidia plunge even as US futures bounce, so a weak Seoul close would show that Asia's AI selloff is not over.</p></div></li>
+<li><time>Mon<br>12:00</time><div><span class="tag mid">Medium impact</span><b>Korea readies market-support fund; rate hike still expected Thursday</b><p>After Sunday's emergency meeting, the finance minister and the Bank of Korea said preparations for a market-support fund begin immediately, and companies get three months' relief from daily share-buyback limits (Yahoo Finance). Economists still expect the Bank of Korea to raise rates by a quarter point on Thursday, which would add pressure on an already falling market.</p></div></li>
+<li><time>Mon<br>08:30</time><div><span class="tag mid">Medium impact</span><b>Hong Kong and China open lower</b><p>Hong Kong's Hang Seng fell about 1.3% at the open and China's CSI 300 about 0.6% (CNBC). Chinese markets are slipping less than Korea, helped by the weekend easing of margin-financing rules.</p></div></li>
+    </ol>
+  </section>
+  <!-- FEED:END -->
+
+  <div class="grid">
+    <main class="stories" aria-label="Top stories">
+      <p class="kicker">Morning brief · top stories, ranked by impact</p>
+      <p class="written">Written Mon 23 Nov, 07:55 WIB. For anything newer, see "Since this morning" above.</p>
+
+      <article class="story">
+        <p class="meta"><span class="tag hi">High impact</span><span class="when">Sun 22 Nov</span></p>
+        <h3>Futures rebound sharply to start a short week</h3>
+        <p>When trading reopened Sunday evening in New York, S&amp;P 500 futures rose about 2%, Nasdaq-100 futures about 2.8% and Dow futures about 673 points, or 1.4% (CNBC; Reuters via Yahoo Finance). The bounce follows the Nasdaq's 10% weekly drop, its biggest since March 2020, with all three major averages ending Friday in correction.</p>
+        <p class="why"><b>Why it matters:</b> A relief rally is likely after such a steep fall, but futures bounces have faded before. The real test is whether buyers hold it through the US session tonight.</p>
+        <div class="who"><span>QQQ</span><span>SPY</span><span>DIA</span></div>
+      </article>
+
+      <article class="story">
+        <p class="meta"><span class="tag hi">High impact</span><span class="when">21–23 Nov</span></p>
+        <h3>Korea slides at the open; Taiwan and China move to steady markets</h3>
+        <p>South Korea's Kospi fell between 2% and more than 3% in early Monday trade, with Samsung Electronics down about 3% and SK Hynix about 2% (CNBC; Reuters via Yahoo Finance). Japan is closed for a public holiday. Over the weekend Taiwan's financial regulator tightened short-selling rules after the Taiex's 17% weekly fall, and Chinese exchanges eased margin-financing requirements.</p>
+        <p class="why"><b>Why it matters:</b> Asia is still pricing in Friday's US chip crash. Official support in Taipei and Shanghai shows how worried regulators are; Tokyo reopens Tuesday with Friday's losses to absorb.</p>
+        <div class="who"><span>EWY</span><span>EWT</span><span>005930.KS</span><span>000660.KS</span><span>TSM</span></div>
+      </article>
+
+      <article class="story">
+        <p class="meta"><span class="tag hi">High impact</span><span class="when">Fri 20 Nov</span></p>
+        <h3>Recap: Nasdaq sank 5.3% as Nvidia fell 14% on SEC probe report</h3>
+        <p>The Nasdaq lost 5.28% to 22,617.73 and turned negative for 2026; the S&amp;P 500 fell 3.70% for a seventh straight loss and the Dow 1.93%. Nvidia slid about 14% after Reuters reported SEC staff are examining possible accounting issues (the SEC declined to comment), wiping out roughly $490 billion of value (Yahoo Finance, CNBC). Yahoo Finance also reports interim CEO Colette Kress said Nvidia has halted the affected chip shipments to Chinese firms and now models no revenue from them.</p>
+        <p class="why"><b>Why it matters:</b> Nvidia is the biggest weight in the AI trade. Accounting doubts plus lost China sales hit confidence across the chip chain, from AMD and Micron to TSMC and Korean memory makers.</p>
+        <div class="who"><span>NVDA</span><span>SMH</span><span>AMD</span><span>MU</span><span>ANT</span></div>
+      </article>
+
+      <article class="story">
+        <p class="meta"><span class="tag mid">Medium impact</span><span class="when">23–27 Nov</span></p>
+        <h3>Week ahead: PCE inflation, Dell and HPE, then Thanksgiving</h3>
+        <p>Wednesday's October PCE report, the Fed's preferred inflation gauge, is the week's key data, with core seen up about 0.3% on the month; GDP data also lands Wednesday (Yahoo Finance). HPE (Monday) and Dell (Tuesday) report after the US close, along with retailers including Best Buy, Dollar Tree and Dick's. US markets are closed Thursday and close early Friday.</p>
+        <p class="why"><b>Why it matters:</b> A December Fed hike is almost fully priced; a hot PCE would cement it and add pressure on stocks. Dell and HPE give a read on AI server demand after the Nvidia shock.</p>
+        <div class="who"><span>DELL</span><span>HPE</span><span>BBY</span><span>TLT</span></div>
+      </article>
+
+      <article class="story">
+        <p class="meta"><span class="tag mid">Medium impact</span><span class="when">Fri 20 Nov</span></p>
+        <h3>Bonds rallied, gold and oil slipped as investors raised cash</h3>
+        <p>The 10-year Treasury yield fell about 10–12 basis points to roughly 4.93–4.97% (CNBC). Gold futures fell about 4.6% to around $3,519, a 52-week low. Brent was near $92 and WTI near $83, set for a third weekly decline as Strait of Hormuz flows recover (CNBC).</p>
+        <p class="why"><b>Why it matters:</b> Falling yields reflect fear more than relief. Cheaper oil eases inflation worries before the Fed and helps importers Japan, Korea and Taiwan.</p>
+        <div class="who"><span>TLT</span><span>GLD</span><span>USO</span><span>XLE</span></div>
+      </article>
+    </main>
+
+    <aside class="rail">
+
+      <section aria-labelledby="k-cal">
+        <h2 id="k-cal">Coming up</h2>
+        <p class="note">All times Jakarta (WIB).</p>
+        <ul class="cal">
+          <li><time>Mon 23 Nov<br>21:45</time><div><b>US flash PMIs</b><span>First business-activity read for November.</span></div></li>
+          <li><time>Tue 24 Nov<br>early</time><div><b>HPE earnings</b><span>Reported after Monday's US close; AI server demand in focus.</span></div></li>
+          <li><time>Tue 24 Nov<br>22:00</time><div><b>US consumer confidence</b><span>Conference Board survey.</span></div></li>
+          <li><time>Wed 25 Nov<br>early</time><div><b>Dell earnings</b><span>Reported after Tuesday's US close.</span></div></li>
+          <li><time>Wed 25 Nov<br>evening</time><div><b>PCE inflation and GDP</b><span>Released before the US open; key input for the December Fed decision.</span></div></li>
+          <li><time>Thu 26 Nov</time><div><b>US markets closed for Thanksgiving</b><span>Friday is a shortened session.</span></div></li>
+          <li><time>Thu 10 Dec<br>02:00</time><div><b>Fed decision</b><span>A quarter-point hike is almost fully priced.</span></div></li>
+        </ul>
+      </section>
+    </aside>
+  </div>
+
+  <footer>
+    <span>Past days: <a href="https://finance-news.aditihs1404.workers.dev/briefs/" target="_blank" rel="noopener">archive of earlier editions</a>.</span>
+    <span>Sources: CNBC and Yahoo Finance. These summaries are for your own reading, not buy or sell advice. Figures marked ≈ are approximate.</span>
+    <ul>
+      <li><a href="https://www.cnbc.com/2026/11/22/stock-market-today-live-updates.html" target="_blank" rel="noopener">CNBC: S&amp;P 500 futures rebound sharply to rise 2%, kick-starting shortened week after tech rout</a></li>
+      <li><a href="https://finance.yahoo.com/markets/stocks/articles/us-futures-bounce-while-asia-234419517.html" target="_blank" rel="noopener">Yahoo Finance: US futures bounce while Asia markets brace for AI wipeout</a></li>
+      <li><a href="https://finance.yahoo.com/markets/article/a-battered-stock-market-looks-for-the-bottom-what-to-watch-this-week-100000117.html" target="_blank" rel="noopener">Yahoo Finance: A battered stock market looks for the bottom: What to watch this week</a></li>
+      <li><a href="https://www.cnbc.com/2026/11/19/stock-market-today-live-updates.html" target="_blank" rel="noopener">CNBC: S&amp;P 500 and Dow close in correction; Nasdaq erases 2026 gain</a></li>
+      <li><a href="https://finance.yahoo.com/markets/stocks/articles/nvidia-stock-plunge-wipes-nearly-212722915.html" target="_blank" rel="noopener">Yahoo Finance: Nvidia stock plunge wipes out nearly $500 billion as SEC reportedly probes its accounting</a></li>
+      <li><a href="https://www.cnbc.com/2026/11/20/treasury-yields-bonds-inflation.html" target="_blank" rel="noopener">CNBC: Treasury yields move sharply lower as investors flee to safe havens</a></li>
+      <li><a href="https://www.cnbc.com/2026/11/20/oil-wti-brent-hormuz.html" target="_blank" rel="noopener">CNBC: Oil prices set for third straight weekly decline on Middle East export flows</a></li>
+    </ul>
+  </footer>
+</div>
+
+</body>
+</html>
